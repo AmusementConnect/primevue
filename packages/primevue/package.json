@@ -352,11 +352,12 @@
         "vitest": "^0.29.8"
     },
     "dependencies": {
-        "@primeuix/styled": "catalog:",
-        "@primeuix/utils": "catalog:",
-        "@primeuix/styles": "catalog:",
+        "@primeuix/styled": "link:../../../primeuix/packages/styled",
+        "@primeuix/styles": "link:../../../primeuix/packages/styles",
+        "@primeuix/utils": "link:../../../primeuix/packages/utils",
         "@primevue/core": "workspace:*",
-        "@primevue/icons": "workspace:*"
+        "@primevue/icons": "workspace:*",
+        "dayjs": "^1.11.18"
     },
     "engines": {
         "node": ">=12.11.0"
