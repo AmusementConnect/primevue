@@ -34,7 +34,7 @@
         "build:showcase": "pnpm --filter showcase build",
         "build:volt": "pnpm --filter volt build",
         "build:apidoc": "pnpm --filter themes build:tokens && pnpm --filter showcase build:apidoc",
-        "build:amusementconnect": "pnpm --filter amusementconnect build",
+        "build:amusementconnect": "pnpm --filter amusementconnect-primevue build",
         "dev": "pnpm --filter showcase dev",
         "preview": "pnpm --filter showcase preview",
         "hot:dev": "DEV_ENV=hot pnpm --filter showcase dev",
