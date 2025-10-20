@@ -15,7 +15,7 @@ variables:
   isMainBranch: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}
   pnpmConfigCache: $(Pipeline.Workspace)/.pnpm-store
 
-name: '4.4.$(Rev:r)'
+name: '1.0.$(Rev:r)'
 
 stages:
 - stage: installDeps
