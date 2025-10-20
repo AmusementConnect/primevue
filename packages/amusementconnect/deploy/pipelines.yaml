@@ -46,7 +46,7 @@ stages:
 
     - script: |
         pnpm install
-        pnpm run build --filter amusementconnect-primevue
+        pnpm run build
       displayName: "pnpm install and build"
 
     - script: |
