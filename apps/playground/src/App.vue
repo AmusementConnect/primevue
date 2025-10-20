@@ -1,10 +1,22 @@
 <script setup>
-import ACDateSelector from 'primevue/acdateselector';
+import ACDateSelector from 'amusementconnect/acdateselector';
+import Select from 'primevue/select';
+import { ref } from "vue";
+
+const dates = ref([new Date(), null])
+const preset = ref('Today')
 </script>
 
 <template>
-  <ACDateSelector>
+  <ACDateSelector
+    v-model="dates"
+    v-model:presetModelValue="preset"
+    selection-mode="range"
+    :number-of-months="2"
+    :max-date="new Date()"
+  >
   </ACDateSelector>
+  <Select></Select>
 </template>
 
 <style scoped>

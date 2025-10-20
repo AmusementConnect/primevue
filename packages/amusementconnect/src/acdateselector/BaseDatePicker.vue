@@ -1,6 +1,6 @@
 <script>
 import BaseInput from '@primevue/core/baseinput';
-import DatePickerStyle from './style/DatePickerStyle';
+import ACDateSelectorStyle from './style/ACDateSelectorStyle';
 //import DatePickerStyle from 'primevue/datepicker/style';
 
 
@@ -249,7 +249,7 @@ export default {
         }
 
     },
-    style: DatePickerStyle,
+    style: ACDateSelectorStyle,
     provide() {
         return {
             $pcDatePicker: this,

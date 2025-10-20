@@ -15,12 +15,6 @@ export * from 'primevue/usetoast';
 // UseStyle
 export * from 'primevue/usestyle';
 
-// ACDateSelector
-export * from 'primevue/acdateselector';
-export { default as ACDateSelector } from 'primevue/acdateselector';
-export * from 'primevue/acdateselector/style';
-export { default as ACDateSelectorStyle } from 'primevue/acdateselector/style';
-
 // Accordion
 export * from 'primevue/accordion';
 export { default as Accordion } from 'primevue/accordion';
@@ -818,4 +812,3 @@ export * from 'primevue/virtualscroller';
 export { default as VirtualScroller } from 'primevue/virtualscroller';
 export * from 'primevue/virtualscroller/style';
 export { default as VirtualScrollerStyle } from 'primevue/virtualscroller/style';
-

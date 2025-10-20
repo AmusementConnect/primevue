@@ -337,7 +337,7 @@
         "access": "public"
     },
     "scripts": {
-        "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
+        "build": "SET NODE_ENV=production&& SET INPUT_DIR=src/&& SET OUTPUT_DIR=dist/&& pnpm run build:package",
         "build:package": "pnpm run build:prebuild && pnpm run build:api && rollup -c && pnpm run build:postbuild",
         "build:api": "node ./scripts/build-api.js",
         "build:prebuild": "node ./scripts/prebuild.mjs",
@@ -352,9 +352,9 @@
         "vitest": "^0.29.8"
     },
     "dependencies": {
-        "@primeuix/styled": "link:../../../primeuix/packages/styled",
-        "@primeuix/styles": "link:../../../primeuix/packages/styles",
-        "@primeuix/utils": "link:../../../primeuix/packages/utils",
+        "@primeuix/styled": "catalog:",
+        "@primeuix/styles": "catalog:",
+        "@primeuix/utils": "catalog:",
         "@primevue/core": "workspace:*",
         "@primevue/icons": "workspace:*",
         "dayjs": "^1.11.18"

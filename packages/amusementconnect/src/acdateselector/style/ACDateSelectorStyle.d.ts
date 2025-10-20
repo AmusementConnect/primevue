@@ -4,12 +4,12 @@
  *
  * [Live Demo](https://www.primevue.org/datepicker/)
  *
- * @module datepickerstyle
+ * @module acdateselectorstyle
  *
  */
 import type { BaseStyle } from '@primevue/core/base/style';
 
-export enum DatePickerClasses {
+export enum ACDateSelectorClasses {
     /**
      * Class name of the root element
      */
@@ -189,4 +189,4 @@ export enum DatePickerClasses {
     label = 'p-datepicker-label'
 }
 
-export interface DatePickerStyle extends BaseStyle {}
+export interface ACDateSelectorStyle extends BaseStyle {}
