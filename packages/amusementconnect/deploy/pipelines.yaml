@@ -46,10 +46,10 @@ stages:
 
     - script: |
         pnpm install
-        pnpm run build
+        pnpm run build --filter amusementconnect-primevue
       displayName: "pnpm install and build"
 
     - script: |
-        pnpm publish --no-git-checks --filter "amusementconnect-primevue"
+        pnpm publish --no-git-checks --filter amusementconnect-primevue
       displayName: "pnpm publish"
       
