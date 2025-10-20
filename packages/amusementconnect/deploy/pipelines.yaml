@@ -30,7 +30,7 @@ stages:
     # install node/npm
     - task: NodeTool@1
       inputs:
-        versionSpec: '22.x'
+        versionS: '22.x'
 
     # auth with amusement connect private registry
     - task: npmAuthenticate@0
