@@ -15,7 +15,7 @@ variables:
   isMainBranch: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}
   pnpmConfigCache: $(Pipeline.Workspace)/.pnpm-store
 
-name: '1.0.$(Rev:r)'
+name: '4.4.$(Rev:r)'
 
 stages:
 - stage: installDeps
@@ -51,5 +51,5 @@ stages:
 
     - script: |
         pnpm publish --no-git-checks --filter amusementconnect-primevue
-      displayName: "npm publish"
+      displayName: "snpm publish"
       
