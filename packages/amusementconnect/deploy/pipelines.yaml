@@ -50,6 +50,6 @@ stages:
       displayName: "pnpm install and build"
 
     - script: |
-        pnpm publish
+        pnpm publish --no-git-checks
       displayName: "pnpm publish"
       
