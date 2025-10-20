@@ -38,7 +38,7 @@ export enum ACDateSelectorClasses {
      * Class name of the panel element
      */
     panel = 'p-datepicker-panel',
-        /**
+    /**
      * Class name of the panel element
      */
     panelContent = 'p-datepicker-panel-content',

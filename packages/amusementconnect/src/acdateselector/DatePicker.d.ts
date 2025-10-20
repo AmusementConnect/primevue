@@ -842,12 +842,12 @@ export interface DatePickerProps {
     /**
      * Value of the selected radiobutton input.
      * @default 'Custom Range'
-     */    
+     */
     presetModelValue: string;
     /**
      * List of preset values to exclude from the radiobutton list.
      * @default []
-     */ 
+     */
 }
 
 /**
