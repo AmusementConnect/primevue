@@ -18,7 +18,7 @@ variables:
 name: '4.4.$(Rev:r)'
 
 stages:
-- stage: install-deps
+- stage: installDeps
   displayName: Install Dependencies
   jobs:
   - job: 
