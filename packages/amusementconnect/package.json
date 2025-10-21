@@ -1,6 +1,6 @@
 {
     "name": "amusementconnect-primevue",
-    "version": "4.4.2",
+    "version": "4.4.3",
     "author": "PrimeTek Informatics",
     "description": "Customized PrimeVue components for use within Amusement Connect organization.",
     "license": "MIT",
@@ -61,13 +61,13 @@
         "vitest": "^0.29.8"
     },
     "dependencies": {
-        "@primeuix/styled": "catalog:",
-        "@primeuix/styles": "catalog:",
-        "@primeuix/utils": "catalog:",
-        "@primevue/core": "workspace:*",
-        "@primevue/icons": "workspace:*",
+        "@primeuix/styled": "link:../../../primeuix/packages/styled",
+        "@primeuix/styles": "link:../../../primeuix/packages/styles",
+        "@primeuix/utils": "link:../../../primeuix/packages/utils",
+        "@primevue/core": "^4.4.0",
+        "@primevue/icons": "^4.4.0",
         "dayjs": "^1.11.18",
-        "primevue": "workspace:*"
+        "primevue": "^4.4.0"
     },
     "engines": {
         "node": ">=12.11.0"
