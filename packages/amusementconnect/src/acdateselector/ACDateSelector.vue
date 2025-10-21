@@ -593,19 +593,16 @@ import ChevronLeftIcon from '@primevue/icons/chevronleft';
 import ChevronRightIcon from '@primevue/icons/chevronright';
 import ChevronUpIcon from '@primevue/icons/chevronup';
 import TimesIcon from '@primevue/icons/times';
-import Button from 'primevue2/button';
-import InputText from 'primevue2/inputtext';
-import OverlayEventBus from 'primevue2/overlayeventbus';
-import Portal from 'primevue2/portal';
-import RadioButton from 'primevue2/radiobutton';
-import Ripple from 'primevue2/ripple';
-import BaseDatePicker from './BaseDatePicker.vue';
-// quarterOfYear = require('dayjs/plugin/quarterOfYear');
-// updateLocale = require('dayjs/plugin/updateLocale');
-// dayjs = require("dayjs");
 import dayjs from "dayjs/esm";
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
 import updateLocale from 'dayjs/esm/plugin/updateLocale';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import OverlayEventBus from 'primevue/overlayeventbus';
+import Portal from 'primevue/portal';
+import RadioButton from 'primevue/radiobutton';
+import Ripple from 'primevue/ripple';
+import BaseDatePicker from './BaseDatePicker.vue';
 
 dayjs.extend(quarterOfYear)
 dayjs.extend(updateLocale)
