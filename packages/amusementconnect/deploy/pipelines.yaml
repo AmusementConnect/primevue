@@ -50,6 +50,6 @@ stages:
       displayName: "pnpm install and build"
 
     - script: |
-        pnpm publish --no-git-checks
+        pnpm publish --no-git-checks --dry-run --filter amusementconnect-primevue
       displayName: "npm publish"
       
