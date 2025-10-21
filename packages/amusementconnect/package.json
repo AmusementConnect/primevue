@@ -1,6 +1,6 @@
 {
     "name": "amusementconnect-primevue",
-    "version": "4.4.11",
+    "version": "4.4.12",
     "author": "PrimeTek Informatics",
     "description": "Customized PrimeVue components for use within Amusement Connect organization.",
     "license": "MIT",
@@ -12,15 +12,15 @@
     "sideEffects": [
         "*.vue"
     ],
-    "main": "./dist/index.js",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./src/index.js",
+    "module": "./src/index.js",
+    "types": "./src/index.d.ts",
     "unpkg": "umd/primevue.min.js",
     "jsdelivr": "umd/primevue.min.js",
     "web-types": "./web-types.json",
     "exports": {
-        "./acdateselector": "./dist/acdateselector/ACDateSelector.vue",
-        "./acdateselector/style": "./dist/acdateselector/style/index.js",
+        "./acdateselector": "./src/acdateselector/ACDateSelector.vue",
+        "./acdateselector/style": "./src/acdateselector/style/ACDateSelectorStyle.js",
         "./*": "./*"
     },
     "publishConfig": {
@@ -61,13 +61,13 @@
         "vitest": "^0.29.8"
     },
     "peerDependencies": {
-        "@primeuix/styled": "^0.7.4",
-        "@primeuix/styles": "^1.2.5",
-        "@primeuix/utils": "^0.6.1",
-        "@primevue/core": "^4.4.1",
-        "@primevue/icons": "^4.4.1",
+        "@primeuix/styled": "catalog:",
+        "@primeuix/styles": "catalog:",
+        "@primeuix/utils": "catalog:",
+        "@primevue/core": "workspace:*",
+        "@primevue/icons": "workspace:*",
         "dayjs": "^1.11.18",
-        "primevue": "^4.4.1"
+        "primevue": "workspace:*"
     },
     "engines": {
         "node": ">=12.11.0"
