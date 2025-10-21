@@ -34,7 +34,7 @@ stages:
     # auth with amusement connect private registry
     - task: npmAuthenticate@0
       inputs:
-        workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
+        workingFile: $(Build.SourcesDirectory)/.npmrc
 
     - script: |
         npm install --global corepack@latest
