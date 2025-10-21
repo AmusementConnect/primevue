@@ -60,7 +60,7 @@
         "@vue/test-utils": "^2.0.0",
         "vitest": "^0.29.8"
     },
-    "dependencies": {
+    "peerDependencies": {
         "@primeuix/styled": "^0.7.4",
         "@primeuix/styles": "^1.2.5",
         "@primeuix/utils": "^0.6.1",
