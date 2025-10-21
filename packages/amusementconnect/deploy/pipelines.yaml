@@ -13,7 +13,6 @@ pool:
 
 variables:
   isMainBranch: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}
-  pnpmConfigCache: $(Pipeline.Workspace)/.pnpm-store
 
 name: '4.4.$(Rev:r)'
 
@@ -41,7 +40,6 @@ stages:
         npm install --global corepack@latest
         corepack enable
         corepack prepare pnpm@latest-10 --activate
-        pnpm config set store-dir $(pnpm_config_cache)
       displayName: "Setup pnpm"
 
     - script: |
@@ -50,6 +48,6 @@ stages:
       displayName: "pnpm install and build"
 
     - script: |
-        pnpm publish --no-git-checks --dry-run --filter amusementconnect-primevue
-      displayName: "npm publish"
+        npm publish --dry-run --workspaces amusementconnect-primevue
+        displayName: "npm publish"
       
