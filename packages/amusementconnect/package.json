@@ -12,15 +12,15 @@
     "sideEffects": [
         "*.vue"
     ],
-    "main": "./src/index.js",
-    "module": "./src/index.js",
-    "types": "./src/index.d.ts",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "unpkg": "umd/primevue.min.js",
     "jsdelivr": "umd/primevue.min.js",
     "web-types": "./web-types.json",
     "exports": {
-        "./acdateselector": "./src/acdateselector/ACDateSelector.vue",
-        "./acdateselector/style": "./src/acdateselector/style/ACDateSelectorStyle.js",
+        "./acdateselector": "./dist/acdateselector/ACDateSelector.vue",
+        "./acdateselector/style": "./dist/acdateselector/style/index.js",
         "./*": "./*"
     },
     "publishConfig": {
