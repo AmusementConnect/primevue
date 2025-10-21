@@ -1,6 +1,6 @@
 {
-    "main": "./DatePickerStyle.js",
-    "module": "./DatePickerStyle.js",
-    "types": "./DatePickerStyle.d.ts",
+    "main": "./ACDatePickerStyle.js",
+    "module": "./ACDatePickerStyle.js",
+    "types": "./ACDatePickerStyle.d.ts",
     "sideEffects": false
 }

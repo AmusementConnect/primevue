@@ -3353,8 +3353,7 @@ export default {
         ChevronUpIcon,
         ChevronDownIcon,
         TimesIcon,
-        RadioButton,
-        Button
+        RadioButton
     },
     directives: {
         ripple: Ripple
