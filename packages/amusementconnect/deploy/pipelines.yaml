@@ -48,6 +48,7 @@ stages:
       displayName: "pnpm install and build"
 
     - script: |
-        npm publish --dry-run --workspaces amusementconnect-primevue
-        displayName: "npm publish"
-      
+        cd packages/amusementconnect
+        npm publish --dry-run
+      displayName: "npm publish"
+
