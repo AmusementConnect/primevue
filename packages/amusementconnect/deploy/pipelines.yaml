@@ -48,7 +48,7 @@ stages:
       displayName: "pnpm install and build"
 
     - script: |
-        cd packages/amusementconnect
+        # cd packages/amusementconnect
         npm publish
       displayName: "npm publish"
 
