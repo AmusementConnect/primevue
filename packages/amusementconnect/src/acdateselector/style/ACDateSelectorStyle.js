@@ -105,7 +105,7 @@ const classes = {
 };
 
 export default BaseStyle.extend({
-    name: 'datepicker',
+    name: 'acdateselector',
     style,
     classes,
     inlineStyles
