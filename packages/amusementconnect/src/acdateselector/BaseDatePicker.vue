@@ -1,6 +1,6 @@
 <script>
 import BaseInput from '@primevue/core/baseinput';
-import ACDateSelectorStyle from './style/ACDateSelectorStyle';
+import ACDateSelectorStyle from './style';
 //import DatePickerStyle from 'primevue/datepicker/style';
 
 
