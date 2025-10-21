@@ -49,6 +49,6 @@ stages:
 
     - script: |
         cd packages/amusementconnect
-        npm publish --dry-run
+        npm publish
       displayName: "npm publish"
 
