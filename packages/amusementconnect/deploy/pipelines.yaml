@@ -43,8 +43,8 @@ stages:
       displayName: "Setup pnpm"
 
     - script: |
-        pnpm install
-        pnpm run build
+        npm install
+        npm run build
       displayName: "pnpm install and build"
 
     - script: |
