@@ -37,12 +37,18 @@ stages:
         workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
 
     - script: |
-        cd packages/amusementconnect
-        npm install --include=dev
-        npm run build
-      displayName: "npm install and build"
+        npm install --global corepack@latest
+        corepack enable
+        corepack prepare pnpm@latest-10 --activate
+      displayName: "Setup pnpm"
 
     - script: |
+        pnpm install
+        pnpm run build
+      displayName: "pnpm install and build"
+
+    - script: |
+        cd packages/amusementconnect
         npm publish
       displayName: "npm publish"
 

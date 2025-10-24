@@ -1,7 +1,7 @@
 {
     "name": "@ac/ac-primevue",
     "version": "0.0.5",
-    "author": "Amusement Connect",
+    "author": "PrimeTek Informatics",
     "description": "Customized PrimeVue components for use within Amusement Connect organization.",
     "license": "MIT",
     "sideEffects": [
@@ -22,7 +22,7 @@
         "access": "public"
     },
     "scripts": {
-        "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
+        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
         "build:package": "npm run build:prebuild && npm run build:api && rollup -c && npm run build:postbuild",
         "build:api": "node ./scripts/build-api.js",
         "build:prebuild": "node ./scripts/prebuild.mjs",
@@ -58,5 +58,9 @@
     "homepage": "https://primevue.org/",
     "bugs": {
         "url": "https://github.com/primefaces/primevue/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/primefaces/primevue.git"
     }
 }
