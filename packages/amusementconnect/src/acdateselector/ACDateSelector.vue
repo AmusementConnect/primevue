@@ -602,7 +602,7 @@ import OverlayEventBus from 'primevue/overlayeventbus';
 import Portal from 'primevue/portal';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
-import BaseDatePicker from './BaseDatePicker.vue';
+import BaseACDateSelector from './BaseACDateSelector.vue';
 
 dayjs.extend(quarterOfYear)
 dayjs.extend(updateLocale)
@@ -611,7 +611,7 @@ dayjs.updateLocale('en', { weekStart: 1 })
 
 export default {
     name: 'ACDateSelector',
-    extends: BaseDatePicker,
+    extends: BaseACDateSelector,
     inheritAttrs: false,
     emits: ['show', 'hide', 'input', 'month-change', 'year-change', 'date-select', 'today-click', 'clear-click', 'focus', 'blur', 'keydown', 'update:presetModelValue'],
     inject: {

@@ -13,180 +13,180 @@ export enum ACDateSelectorClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-datepicker',
+    root = 'ac-datepicker',
     /**
      * Class name of the input element
      */
-    pcInput = 'p-datepicker-input',
+    pcInput = 'ac-datepicker-input',
     /**
      * Class name of the dropdown element
      */
-    dropdown = 'p-datepicker-dropdown',
+    dropdown = 'ac-datepicker-dropdown',
     /**
      * Class name of the input icon container element
      */
-    inputIconContainer = 'p-datepicker-input-icon-container',
+    inputIconContainer = 'ac-datepicker-input-icon-container',
     /**
      * Class name of the input icon element
      */
-    inputIcon = 'p-datepicker-input-icon',
+    inputIcon = 'ac-datepicker-input-icon',
     /**
      * Class name of the clear icon element
      */
-    clearIcon = 'p-datepicker-clear-icon',
+    clearIcon = 'ac-datepicker-clear-icon',
     /**
      * Class name of the panel element
      */
-    panel = 'p-datepicker-panel',
+    panel = 'ac-datepicker-panel',
     /**
      * Class name of the panel element
      */
-    panelContent = 'p-datepicker-panel-content',
+    panelContent = 'ac-datepicker-panel-content',
     /**
      * Class name of the calendar container element
      */
-    calendarContainer = 'p-datepicker-calendar-container',
+    calendarContainer = 'ac-datepicker-calendar-container',
     /**
      * Class name of the calendar element
      */
-    calendar = 'p-datepicker-calendar',
+    calendar = 'ac-datepicker-calendar',
     /**
      * Class name of the header element
      */
-    header = 'p-datepicker-header',
+    header = 'ac-datepicker-header',
     /**
      * Class name of the previous button element
      */
-    pcPrevButton = 'p-datepicker-prev-button',
+    pcPrevButton = 'ac-datepicker-prev-button',
     /**
      * Class name of the title element
      */
-    title = 'p-datepicker-title',
+    title = 'ac-datepicker-title',
     /**
      * Class name of the select month element
      */
-    selectMonth = 'p-datepicker-select-month',
+    selectMonth = 'ac-datepicker-select-month',
     /**
      * Class name of the select year element
      */
-    selectYear = 'p-datepicker-select-year',
+    selectYear = 'ac-datepicker-select-year',
     /**
      * Class name of the decade element
      */
-    decade = 'p-datepicker-decade',
+    decade = 'ac-datepicker-decade',
     /**
      * Class name of the next button element
      */
-    pcNextButton = 'p-datepicker-next-button',
+    pcNextButton = 'ac-datepicker-next-button',
     /**
      * Class name of the day view element
      */
-    dayView = 'p-datepicker-day-view',
+    dayView = 'ac-datepicker-day-view',
     /**
      * Class name of the week header element
      */
-    weekHeader = 'p-datepicker-weekheader',
+    weekHeader = 'ac-datepicker-weekheader',
     /**
      * Class name of the week number element
      */
-    weekNumber = 'p-datepicker-weeknumber',
+    weekNumber = 'ac-datepicker-weeknumber',
     /**
      * Class name of the week label container element
      */
-    weekLabelContainer = 'p-datepicker-weeklabel-container',
+    weekLabelContainer = 'ac-datepicker-weeklabel-container',
     /**
      * Class name of the week day cell element
      */
-    weekDayCell = 'p-datepicker-weekday-cell',
+    weekDayCell = 'ac-datepicker-weekday-cell',
     /**
      * Class name of the week day element
      */
-    weekDay = 'p-datepicker-weekday',
+    weekDay = 'ac-datepicker-weekday',
     /**
      * Class name of the day cell element
      */
-    dayCell = 'p-datepicker-day-cell',
+    dayCell = 'ac-datepicker-day-cell',
     /**
      * Class name of the day element
      */
-    day = 'p-datepicker-day',
+    day = 'ac-datepicker-day',
     /**
      * Class name of the month view element
      */
-    monthView = 'p-datepicker-month-view',
+    monthView = 'ac-datepicker-month-view',
     /**
      * Class name of the month element
      */
-    month = 'p-datepicker-month',
+    month = 'ac-datepicker-month',
     /**
      * Class name of the year view element
      */
-    yearView = 'p-datepicker-year-view',
+    yearView = 'ac-datepicker-year-view',
     /**
      * Class name of the year element
      */
-    year = 'p-datepicker-year',
+    year = 'ac-datepicker-year',
     /**
      * Class name of the time picker element
      */
-    timePicker = 'p-datepicker-time-picker',
+    timePicker = 'ac-datepicker-time-picker',
     /**
      * Class name of the hour picker element
      */
-    hourPicker = 'p-datepicker-hour-picker',
+    hourPicker = 'ac-datepicker-hour-picker',
     /**
      * Class name of the increment button element
      */
-    pcIncrementButton = 'p-datepicker-increment-button',
+    pcIncrementButton = 'ac-datepicker-increment-button',
     /**
      * Class name of the decrement button element
      */
-    pcDecrementButton = 'p-datepicker-decrement-button',
+    pcDecrementButton = 'ac-datepicker-decrement-button',
     /**
      * Class name of the separator element
      */
-    separator = 'p-datepicker-separator',
+    separator = 'ac-datepicker-separator',
     /**
      * Class name of the minute picker element
      */
-    minutePicker = 'p-datepicker-minute-picker',
+    minutePicker = 'ac-datepicker-minute-picker',
     /**
      * Class name of the second picker element
      */
-    secondPicker = 'p-datepicker-second-picker',
+    secondPicker = 'ac-datepicker-second-picker',
     /**
      * Class name of the ampm picker element
      */
-    ampmPicker = 'p-datepicker-ampm-picker',
+    ampmPicker = 'ac-datepicker-ampm-picker',
     /**
      * Class name of the buttonbar element
      */
-    buttonbar = 'p-datepicker-buttonbar',
+    buttonbar = 'ac-datepicker-buttonbar',
     /**
      * Class name of the today button element
      */
-    pcTodayButton = 'p-datepicker-today-button',
+    pcTodayButton = 'ac-datepicker-today-button',
     /**
      * Class name of the clear button element
      */
-    pcClearButton = 'p-datepicker-clear-button',
+    pcClearButton = 'ac-datepicker-clear-button',
     /**
      * Class name of the preset list container element
      */
-    presetListContainer = 'p-datepicker-preset-list',
+    presetListContainer = 'ac-datepicker-preset-list',
     /**
     /**
      * Class name of the preset list element
      */
-    presetList = 'p-datepicker-preset-list',
+    presetList = 'ac-datepicker-preset-list',
     /**
      * Class name of the preset list item element
      */
-    presetListItem = 'p-datepicker-preset-list-item',
+    presetListItem = 'ac-datepicker-preset-list-item',
     /**
      * Class name of the label wrapper
      */
-    label = 'p-datepicker-label'
+    label = 'ac-datepicker-label'
 }
 
 export interface ACDateSelectorStyle extends BaseStyle {}

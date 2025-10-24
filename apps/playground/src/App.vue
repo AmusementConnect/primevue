@@ -1,6 +1,7 @@
 <script setup>
 import ACDateSelector from 'amusementconnect/acdateselector';
-import Select from 'primevue/select';
+// import Select from "primevue/select";
+// import DatePicker from "primevue/datepicker";
 import { ref } from "vue";
 
 const dates = ref([new Date(), null])
@@ -16,7 +17,8 @@ const preset = ref('Today')
     :max-date="new Date()"
   >
   </ACDateSelector>
-  <Select></Select>
+  <!-- <DatePicker></DatePicker> -->
+  <!-- <Select></Select> -->
 </template>
 
 <style scoped>

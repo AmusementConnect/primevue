@@ -1,5 +1,7 @@
-import { style } from '@primeuix/styles/datepicker';
+import { style } from '@ac/acprimeuix-styles/acdateselector';
 import BaseStyle from '@primevue/core/base/style';
+
+console.log(style)
 
 const inlineStyles = {
     root: ({ props }) => ({ position: props.appendTo === 'self' || props.showClear ? 'relative' : undefined })
@@ -7,49 +9,49 @@ const inlineStyles = {
 
 const classes = {
     root: ({ instance, state }) => [
-        'p-datepicker p-component p-inputwrapper',
+        'ac-datepicker p-component p-inputwrapper',
         {
             'p-invalid': instance.$invalid,
             'p-inputwrapper-filled': instance.$filled,
             'p-inputwrapper-focus': state.focused || state.overlayVisible,
             'p-focus': state.focused || state.overlayVisible,
-            'p-datepicker-fluid': instance.$fluid
+            'ac-datepicker-fluid': instance.$fluid
         }
     ],
-    pcInputText: 'p-datepicker-input',
-    clearIcon: 'p-datepicker-clear-icon',
-    dropdown: 'p-datepicker-dropdown',
-    inputIconContainer: 'p-datepicker-input-icon-container',
-    inputIcon: 'p-datepicker-input-icon',
+    pcInputText: 'ac-datepicker-input',
+    clearIcon: 'ac-datepicker-clear-icon',
+    dropdown: 'ac-datepicker-dropdown',
+    inputIconContainer: 'ac-datepicker-input-icon-container',
+    inputIcon: 'ac-datepicker-input-icon',
     panel: ({ props }) => [
-        'p-datepicker-panel p-component',
+        'ac-datepicker-panel p-component',
         {
-            'p-datepicker-panel-inline': props.inline,
+            'ac-datepicker-panel-inline': props.inline,
             'p-disabled': props.disabled,
-            'p-datepicker-timeonly': props.timeOnly
+            'ac-datepicker-timeonly': props.timeOnly
         }
     ],
-    panelContent: 'p-datepicker-panel-content',
-    calendarContainer: 'p-datepicker-calendar-container',
-    calendar: 'p-datepicker-calendar',
-    header: 'p-datepicker-header',
-    pcPrevButton: 'p-datepicker-prev-button',
-    title: 'p-datepicker-title',
-    selectMonth: 'p-datepicker-select-month',
-    selectYear: 'p-datepicker-select-year',
-    decade: 'p-datepicker-decade',
-    pcNextButton: 'p-datepicker-next-button',
-    dayView: 'p-datepicker-day-view',
-    weekHeader: 'p-datepicker-weekheader p-disabled',
-    weekNumber: 'p-datepicker-weeknumber',
-    weekLabelContainer: 'p-datepicker-weeklabel-container p-disabled',
-    weekDayCell: 'p-datepicker-weekday-cell',
-    weekDay: 'p-datepicker-weekday',
+    panelContent: 'ac-datepicker-panel-content',
+    calendarContainer: 'ac-datepicker-calendar-container',
+    calendar: 'ac-datepicker-calendar',
+    header: 'ac-datepicker-header',
+    pcPrevButton: 'ac-datepicker-prev-button',
+    title: 'ac-datepicker-title',
+    selectMonth: 'ac-datepicker-select-month',
+    selectYear: 'ac-datepicker-select-year',
+    decade: 'ac-datepicker-decade',
+    pcNextButton: 'ac-datepicker-next-button',
+    dayView: 'ac-datepicker-day-view',
+    weekHeader: 'ac-datepicker-weekheader p-disabled',
+    weekNumber: 'ac-datepicker-weeknumber',
+    weekLabelContainer: 'ac-datepicker-weeklabel-container p-disabled',
+    weekDayCell: 'ac-datepicker-weekday-cell',
+    weekDay: 'ac-datepicker-weekday',
     dayCell: ({ date }) => [
-        'p-datepicker-day-cell',
+        'ac-datepicker-day-cell',
         {
-            'p-datepicker-other-month': date.otherMonth,
-            'p-datepicker-today': date.today
+            'ac-datepicker-other-month': date.otherMonth,
+            'ac-datepicker-today': date.today
         }
     ],
     day: ({ instance, props, state, date }) => {
@@ -59,49 +61,49 @@ const classes = {
             const start = typeof state.rawValue[0] === 'string' ? instance.parseValue(state.rawValue[0])[0] : state.rawValue[0];
             const end = typeof state.rawValue[1] === 'string' ? instance.parseValue(state.rawValue[1])[0] : state.rawValue[1];
 
-            selectedDayClass = instance.isDateEquals(start, date) || instance.isDateEquals(end, date) ? 'p-datepicker-day-selected' : 'p-datepicker-day-selected-range';
+            selectedDayClass = instance.isDateEquals(start, date) || instance.isDateEquals(end, date) ? 'ac-datepicker-day-selected' : 'ac-datepicker-day-selected-range';
         }
 
         return [
-            'p-datepicker-day',
+            'ac-datepicker-day',
             {
-                'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
+                'ac-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
                 'p-disabled': props.disabled || !date.selectable
             },
             selectedDayClass
         ];
     },
-    monthView: 'p-datepicker-month-view',
+    monthView: 'ac-datepicker-month-view',
     month: ({ instance, props, month, index }) => [
-        'p-datepicker-month',
+        'ac-datepicker-month',
         {
-            'p-datepicker-month-selected': instance.isMonthSelected(index),
+            'ac-datepicker-month-selected': instance.isMonthSelected(index),
             'p-disabled': props.disabled || !month.selectable
         }
     ],
-    yearView: 'p-datepicker-year-view',
+    yearView: 'ac-datepicker-year-view',
     year: ({ instance, props, year }) => [
-        'p-datepicker-year',
+        'ac-datepicker-year',
         {
-            'p-datepicker-year-selected': instance.isYearSelected(year.value),
+            'ac-datepicker-year-selected': instance.isYearSelected(year.value),
             'p-disabled': props.disabled || !year.selectable
         }
     ],
-    timePicker: 'p-datepicker-time-picker',
-    hourPicker: 'p-datepicker-hour-picker',
-    pcIncrementButton: 'p-datepicker-increment-button',
-    pcDecrementButton: 'p-datepicker-decrement-button',
-    separator: 'p-datepicker-separator',
-    minutePicker: 'p-datepicker-minute-picker',
-    secondPicker: 'p-datepicker-second-picker',
-    ampmPicker: 'p-datepicker-ampm-picker',
-    buttonbar: 'p-datepicker-buttonbar',
-    pcTodayButton: 'p-datepicker-today-button',
-    pcClearButton: 'p-datepicker-clear-button',
-    presetListContainer: 'p-datepicker-preset-list-container',
-    presetList: 'p-datepicker-preset-list',
-    presetListItem: 'p-datepicker-preset-list-item',
-    label: 'p-datepicker-label'
+    timePicker: 'ac-datepicker-time-picker',
+    hourPicker: 'ac-datepicker-hour-picker',
+    pcIncrementButton: 'ac-datepicker-increment-button',
+    pcDecrementButton: 'ac-datepicker-decrement-button',
+    separator: 'ac-datepicker-separator',
+    minutePicker: 'ac-datepicker-minute-picker',
+    secondPicker: 'ac-datepicker-second-picker',
+    ampmPicker: 'ac-datepicker-ampm-picker',
+    buttonbar: 'ac-datepicker-buttonbar',
+    pcTodayButton: 'ac-datepicker-today-button',
+    pcClearButton: 'ac-datepicker-clear-button',
+    presetListContainer: 'ac-datepicker-preset-list-container',
+    presetList: 'ac-datepicker-preset-list',
+    presetListItem: 'ac-datepicker-preset-list-item',
+    label: 'ac-datepicker-label'
 };
 
 export default BaseStyle.extend({

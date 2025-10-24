@@ -1,11 +1,10 @@
 <script>
+import ACDateSelectorStyle from '@ac/ac-primevue/acdateselector/style';
 import BaseInput from '@primevue/core/baseinput';
-import ACDateSelectorStyle from './style/ACDateSelectorStyle';
-// import DatePickerStyle from 'primevue/datepicker/style';
 
 
 export default {
-    name: 'BaseDatePicker',
+    name: 'BaseACDateSelector',
     extends: BaseInput,
     props: {
         selectionMode: {

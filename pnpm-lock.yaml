@@ -105,9 +105,21 @@ importers:
 
   apps/playground:
     dependencies:
-      amusementconnect-primevue:
+      '@ac/ac-primevue':
         specifier: workspace:*
         version: link:../../packages/amusementconnect
+      '@primeuix/themes':
+        specifier: 'catalog:'
+        version: 1.2.5
+      '@primevue/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      primeicons:
+        specifier: 'catalog:'
+        version: 7.0.0
+      primevue:
+        specifier: workspace:*
+        version: link:../../packages/primevue
       vue:
         specifier: ^3.5.22
         version: 3.5.22(typescript@5.7.3)
@@ -258,27 +270,27 @@ importers:
 
   packages/amusementconnect:
     dependencies:
+      '@ac/acprimeuix-styles':
+        specifier: 0.0.1
+        version: 0.0.1(@primeuix/styled@0.7.4)
       '@primeuix/styled':
-        specifier: ^0.7.4
+        specifier: 'catalog:'
         version: 0.7.4
       '@primeuix/styles':
-        specifier: ^1.2.5
+        specifier: 'catalog:'
         version: 1.2.5
       '@primeuix/utils':
-        specifier: ^0.6.1
+        specifier: 'catalog:'
         version: 0.6.1
       '@primevue/core':
-        specifier: ^4.4.1
-        version: 4.4.1(vue@3.5.22(typescript@5.7.3))
+        specifier: workspace:*
+        version: link:../core
       '@primevue/icons':
-        specifier: ^4.4.1
-        version: 4.4.1(vue@3.5.22(typescript@5.7.3))
+        specifier: workspace:*
+        version: link:../icons
       dayjs:
         specifier: ^1.11.18
         version: 1.11.18
-      primevue:
-        specifier: ^4.4.1
-        version: 4.4.1(vue@3.5.22(typescript@5.7.3))
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: ^28.0.8
@@ -455,6 +467,11 @@ importers:
     publishDirectory: dist
 
 packages:
+
+  '@ac/acprimeuix-styles@0.0.1':
+    resolution: {integrity: sha1-3kZfdGeUSD9ReXOQwC5zFuTlhI8=}
+    peerDependencies:
+      '@primeuix/styled': ^0.7.4
 
   '@algolia/abtesting@1.6.0':
     resolution: {integrity: sha1-AJBhqm0/UU7VTvo1+tu92gCBwf0=}
@@ -2090,16 +2107,6 @@ packages:
 
   '@primeuix/utils@0.6.1':
     resolution: {integrity: sha1-NK+OBaqaFCvzwpA4G14QTcFeUrU=}
-    engines: {node: '>=12.11.0'}
-
-  '@primevue/core@4.4.1':
-    resolution: {integrity: sha1-yWT3R0ght9dlfKmkKxwXlKpfAFI=}
-    engines: {node: '>=12.11.0'}
-    peerDependencies:
-      vue: ^3.5.0
-
-  '@primevue/icons@4.4.1':
-    resolution: {integrity: sha1-kI7dlz5Ie7pDgyo0uWN4Ute78LA=}
     engines: {node: '>=12.11.0'}
 
   '@rolldown/pluginutils@1.0.0-beta.29':
@@ -5842,10 +5849,6 @@ packages:
   primeicons@7.0.0:
     resolution: {integrity: sha1-ayXD/cspu3RaMDW9we1ZAvSkGc8=}
 
-  primevue@4.4.1:
-    resolution: {integrity: sha1-M2fMFCzPZ1ac7vWKS9ulTV+YYGc=}
-    engines: {node: '>=12.11.0'}
-
   process-nextick-args@2.0.1:
     resolution: {integrity: sha1-eCDZsWEgzFXKmud5JoCufbptf+I=}
 
@@ -7386,6 +7389,10 @@ packages:
     resolution: {integrity: sha1-43uVe11SB5dp+4CXCZtZLw70Bn0=}
 
 snapshots:
+
+  '@ac/acprimeuix-styles@0.0.1(@primeuix/styled@0.7.4)':
+    dependencies:
+      '@primeuix/styled': 0.7.4
 
   '@algolia/abtesting@1.6.0':
     dependencies:
@@ -9463,19 +9470,6 @@ snapshots:
       '@primeuix/styled': 0.7.4
 
   '@primeuix/utils@0.6.1': {}
-
-  '@primevue/core@4.4.1(vue@3.5.22(typescript@5.7.3))':
-    dependencies:
-      '@primeuix/styled': 0.7.4
-      '@primeuix/utils': 0.6.1
-      vue: 3.5.22(typescript@5.7.3)
-
-  '@primevue/icons@4.4.1(vue@3.5.22(typescript@5.7.3))':
-    dependencies:
-      '@primeuix/utils': 0.6.1
-      '@primevue/core': 4.4.1(vue@3.5.22(typescript@5.7.3))
-    transitivePeerDependencies:
-      - vue
 
   '@rolldown/pluginutils@1.0.0-beta.29': {}
 
@@ -13864,16 +13858,6 @@ snapshots:
       parse-ms: 4.0.0
 
   primeicons@7.0.0: {}
-
-  primevue@4.4.1(vue@3.5.22(typescript@5.7.3)):
-    dependencies:
-      '@primeuix/styled': 0.7.4
-      '@primeuix/styles': 1.2.5
-      '@primeuix/utils': 0.6.1
-      '@primevue/core': 4.4.1(vue@3.5.22(typescript@5.7.3))
-      '@primevue/icons': 4.4.1(vue@3.5.22(typescript@5.7.3))
-    transitivePeerDependencies:
-      - vue
 
   process-nextick-args@2.0.1: {}
 
