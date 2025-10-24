@@ -44,11 +44,11 @@ stages:
 
     - script: |
         npm install
+        cd packages/amusementconnect
         npm run build
       displayName: "pnpm install and build"
 
     - script: |
-        cd packages/amusementconnect
         npm publish
       displayName: "npm publish"
 
