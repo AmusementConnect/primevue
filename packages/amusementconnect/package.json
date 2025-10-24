@@ -65,11 +65,11 @@
         "dayjs": "^1.11.18"
     },
     "peerDependencies": {
-        "@primeuix/styled": "catalog:",
-        "@primeuix/styles": "catalog:",
-        "@primeuix/utils": "catalog:",
-        "@primevue/core": "workspace:*",
-        "@primevue/icons": "workspace:*"
+        "@primeuix/styled": "^0.7.4",
+        "@primeuix/utils": "^0.6.1",
+        "@primeuix/styles": "^1.2.5",
+        "@primevue/core": "^4.4.1",
+        "@primevue/icons": "^4.4.1"
     },
     "engines": {
         "node": ">=12.11.0"
