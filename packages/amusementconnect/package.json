@@ -1,14 +1,9 @@
 {
     "name": "@ac/ac-primevue",
     "version": "0.0.3",
-    "author": "PrimeTek Informatics",
+    "author": "Amusement Connect",
     "description": "Customized PrimeVue components for use within Amusement Connect organization.",
     "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/primefaces/primevue.git",
-        "directory": "packages/primevue"
-    },
     "sideEffects": [
         "*.vue"
     ],
@@ -44,13 +39,14 @@
         "vitest": "^0.29.8"
     },
     "dependencies": {
+        "@ac/ac-primevue": "^0.0.3",
         "@ac/acprimeuix-styles": "0.0.1",
         "dayjs": "^1.11.18"
     },
     "peerDependencies": {
         "@primeuix/styled": "^0.7.4",
-        "@primeuix/utils": "^0.6.1",
         "@primeuix/styles": "^1.2.5",
+        "@primeuix/utils": "^0.6.1",
         "@primevue/core": "^4.4.1",
         "@primevue/icons": "^4.4.1"
     },
