@@ -22,7 +22,7 @@
         "access": "public"
     },
     "scripts": {
-        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
+        "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
         "build:package": "npm run build:prebuild && npm run build:api && rollup -c && npm run build:postbuild",
         "build:api": "node ./scripts/build-api.js",
         "build:prebuild": "node ./scripts/prebuild.mjs",
