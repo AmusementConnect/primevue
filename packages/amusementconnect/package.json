@@ -12,7 +12,6 @@
     "types": "./src/index.d.ts",
     "unpkg": "umd/primevue.min.js",
     "jsdelivr": "umd/primevue.min.js",
-
     "exports": {
         ".": "./src/index.js",
         "./acdateselector": "./src/acdateselector/ACDateSelector.vue",
@@ -30,15 +29,16 @@
         "dev:link": "npm link --global && npm link"
     },
     "devDependencies": {
-        "@rollup/plugin-commonjs": "^28.0.8",
         "@rollup/plugin-alias": "^5.1.0",
         "@rollup/plugin-babel": "^6.0.3",
+        "@rollup/plugin-commonjs": "^28.0.8",
         "@rollup/plugin-node-resolve": "^15.2.3",
         "@rollup/plugin-terser": "^0.4.4",
         "cross-env": "^10.1.0",
         "fs-extra": "^11.3.2",
+        "rollup": "^4.52.5",
         "rollup-plugin-postcss": "^4.0.0",
-        "rollup-plugin-vue": "^6.0.0-beta.9",
+        "rollup-plugin-vue": "^6.0.0-beta.9"
     },
     "dependencies": {
         "@ac/acprimeuix-styles": "0.0.1",
