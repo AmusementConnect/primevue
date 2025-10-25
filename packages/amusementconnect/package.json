@@ -23,7 +23,7 @@
     },
     "scripts": {
         "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
-        "build:package": "npm run build:prebuild && rollup -c && npm run build:postbuild",
+        "build:package": "npm run build:prebuild && npx rollup -c && npm run build:postbuild",
         "build:prebuild": "node ./scripts/prebuild.mjs",
         "build:postbuild": "node ./scripts/postbuild.mjs",
         "dev:link": "npm link --global && npm link"
