@@ -44,6 +44,7 @@ stages:
 
     - script: |
         pnpm install
+        pnpm add -D cross-env
         pnpm run build
       displayName: "pnpm install and build"
 
