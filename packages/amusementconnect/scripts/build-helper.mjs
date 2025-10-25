@@ -1,6 +1,6 @@
-import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from '../node_modules/fs-extra';
 
 export function resolvePath(metaUrl) {
     const __dirname = path.dirname(fileURLToPath(metaUrl || import.meta.url));
