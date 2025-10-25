@@ -31,20 +31,103 @@ stages:
       inputs:
         version: '22.x'
 
-    # Set environment variables and build
+    # Environment info
     - script: |
+        echo "=== Environment Information ==="
+        echo "Node version: $(node --version)"
+        echo "NPM version: $(npm --version)"
+        echo "Working directory: $(pwd)"
+        echo "Current user: $(whoami)"
+        echo "Build reason: $(Build.Reason)"
+        echo "Source branch: $(Build.SourceBranch)"
+        echo "Build number: $(Build.BuildNumber)"
+        echo "================================"
+      displayName: "Environment Info"
+
+    # Directory structure
+    - script: |
+        echo "=== Directory Structure ==="
+        ls -la
+        echo "--- packages directory ---"
+        ls -la packages/
+        echo "--- amusementconnect directory ---"
+        ls -la packages/amusementconnect/
+        echo "=========================="
+      displayName: "Directory Structure"
+
+    # Install dependencies with logging
+    - script: |
+        echo "=== Installing Dependencies ==="
         cd packages/amusementconnect
-        npm install --include=dev
-        NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package
-      displayName: "Install and build"
+        echo "Current directory: $(pwd)"
+        echo "Package.json exists: $(ls -la package.json)"
+        echo "Starting npm install..."
+        npm install --include=dev --verbose
+        echo "Installation complete. Checking node_modules..."
+        ls -la node_modules/ | head -10
+        echo "Checking for critical dependencies..."
+        echo "rollup: $(ls node_modules/.bin/rollup 2>/dev/null || echo 'NOT FOUND')"
+        echo "cross-env: $(ls node_modules/.bin/cross-env 2>/dev/null || echo 'NOT FOUND')"
+        echo "==============================="
+      displayName: "Install Dependencies"
+
+    # Build with detailed logging
+    - script: |
+        echo "=== Building Package ==="
+        cd packages/amusementconnect
+        echo "Current directory: $(pwd)"
+        echo "Setting environment variables..."
+        export NODE_ENV=production
+        export INPUT_DIR=src/
+        export OUTPUT_DIR=dist/
+        echo "NODE_ENV=$NODE_ENV"
+        echo "INPUT_DIR=$INPUT_DIR"
+        echo "OUTPUT_DIR=$OUTPUT_DIR"
+        echo "Starting build process..."
+        npm run build:package --verbose
+        echo "Build complete. Checking dist directory..."
+        echo "Dist contents:"
+        ls -la dist/ || echo "Dist directory not found"
+        echo "========================"
+      displayName: "Build Package"
+
+    # Registry authentication with logging
+    - script: |
+        echo "=== Registry Authentication Info ==="
+        echo "Checking .npmrc file..."
+        cd packages/amusementconnect
+        cat .npmrc || echo ".npmrc not found"
+        echo "====================================="
+      displayName: "Registry Info"
 
     # auth with amusement connect private registry
     - task: npmAuthenticate@0
       inputs:
         workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
 
-    # publish
+    # Publish with logging
     - script: |
+        echo "=== Publishing Package ==="
         cd packages/amusementconnect
+        echo "Current directory: $(pwd)"
+        echo "Checking authentication..."
+        npm whoami || echo "Not authenticated or authentication failed"
+        echo "Package info:"
+        cat package.json | grep -E '"name"|"version"'
+        echo "Publishing with dry-run first..."
+        npm publish --dry-run
+        echo "Dry-run successful. Publishing for real..."
         npm publish
-      displayName: "Publish package"
+        echo "Publish complete!"
+        echo "=========================="
+      displayName: "Publish Package"
+
+    # Final status
+    - script: |
+        echo "=== Build Summary ==="
+        echo "Build completed successfully!"
+        echo "Package: @ac/ac-primevue"
+        echo "Version: $(cat packages/amusementconnect/package.json | grep '"version"' | cut -d'"' -f4)"
+        echo "Build number: $(Build.BuildNumber)"
+        echo "===================="
+      displayName: "Build Summary"
