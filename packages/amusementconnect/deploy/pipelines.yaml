@@ -43,7 +43,6 @@ stages:
       displayName: "Setup pnpm"
 
     - script: |
-        echo 'pnpm install'
         pnpm install
         pnpm run build
       displayName: "pnpm install and build"

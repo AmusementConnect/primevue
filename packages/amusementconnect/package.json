@@ -14,6 +14,7 @@
     "jsdelivr": "umd/primevue.min.js",
     "web-types": "./web-types.json",
     "exports": {
+        ".": "./src/index.js",
         "./acdateselector": "./src/acdateselector/ACDateSelector.vue",
         "./acdateselector/style": "./src/acdateselector/style/ACDateSelectorStyle.js",
         "./*": "./*"
@@ -22,9 +23,8 @@
         "access": "public"
     },
     "scripts": {
-        "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
-        "build:package": "npm run build:prebuild && npm run build:api && rollup -c && npm run build:postbuild",
-        "build:api": "node ./scripts/build-api.js",
+        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
+        "build:package": "npm run build:prebuild && rollup -c && npm run build:postbuild",
         "build:prebuild": "node ./scripts/prebuild.mjs",
         "build:postbuild": "node ./scripts/postbuild.mjs",
         "dev:link": "npm link --global && npm link",
@@ -37,7 +37,6 @@
         "@rollup/plugin-node-resolve": "^15.2.3",
         "@vue/test-utils": "^2.0.0",
         "cross-env": "^10.1.0",
-        "fs-extra": "^11.3.2",
         "vitest": "^0.29.8"
     },
     "dependencies": {
