@@ -12,6 +12,7 @@
     "types": "./src/index.d.ts",
     "unpkg": "umd/primevue.min.js",
     "jsdelivr": "umd/primevue.min.js",
+
     "exports": {
         ".": "./src/index.js",
         "./acdateselector": "./src/acdateselector/ACDateSelector.vue",
@@ -22,7 +23,7 @@
         "access": "public"
     },
     "scripts": {
-        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
+        "build": "NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
         "build:package": "npm run build:prebuild && rollup -c && npm run build:postbuild",
         "build:prebuild": "node ./scripts/prebuild.mjs",
         "build:postbuild": "node ./scripts/postbuild.mjs",
