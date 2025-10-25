@@ -14,11 +14,11 @@ pool:
 variables:
   isMainBranch: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}
 
-name: '4.4.$(Rev:r)'
+name: '0.0.$(Rev:r)'
 
 stages:
-- stage: installDeps
-  displayName: Install Dependencies
+- stage: buildAndPublish
+  displayName: Build and Publish
   jobs:
   - job: 
     steps:
@@ -31,18 +31,20 @@ stages:
       inputs:
         version: '22.x'
 
+    # Set environment variables and build
+    - script: |
+        cd packages/amusementconnect
+        npm install --include=dev
+        NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package
+      displayName: "Install and build"
+
     # auth with amusement connect private registry
     - task: npmAuthenticate@0
       inputs:
         workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
 
+    # publish
     - script: |
         cd packages/amusementconnect
-        npm install
-        npm run build
-      displayName: "npm install and build"
-
-    - script: |
         npm publish
-      displayName: "npm publish"
-
+      displayName: "Publish package"
