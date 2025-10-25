@@ -41,7 +41,6 @@
         "vitest": "^0.29.8"
     },
     "dependencies": {
-        "@ac/ac-primevue": "^0.0.3",
         "@ac/acprimeuix-styles": "0.0.1",
         "dayjs": "^1.11.18"
     },
