@@ -1,6 +1,6 @@
 {
     "name": "@ac/ac-primevue",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "author": "PrimeTek Informatics",
     "description": "Customized PrimeVue components for use within Amusement Connect organization.",
     "license": "MIT",
@@ -37,7 +37,6 @@
         "@rollup/plugin-node-resolve": "^15.2.3",
         "@rollup/plugin-terser": "^0.4.4",
         "cross-env": "^10.1.0",
-        "fs-extra": "^11.3.2",
         "rollup": "^4.52.5",
         "rollup-plugin-postcss": "^4.0.0",
         "rollup-plugin-vue": "^6.0.0-beta.9"
