@@ -62,7 +62,7 @@ stages:
         echo "Current directory: $(pwd)"
         echo "Package.json exists: $(ls -la package.json)"
         echo "Starting npm install..."
-        npm install --include=dev --verbose
+        npm install --include=dev --no-cache --verbose
         echo "Installation complete. Checking node_modules..."
         ls -la node_modules/ | head -10
         echo "Checking for critical dependencies..."
