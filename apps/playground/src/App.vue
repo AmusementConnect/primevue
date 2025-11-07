@@ -1,11 +1,13 @@
 <script setup>
-import ACDateSelector from 'amusementconnect/acdateselector';
-// import Select from "primevue/select";
+import ACDateSelector from '@ac/ac-primevue/acdateselector';
+import Select from "primevue/select";
 // import DatePicker from "primevue/datepicker";
 import { ref } from "vue";
 
 const dates = ref([new Date(), null])
 const preset = ref('Today')
+
+const visible = ref(false)
 </script>
 
 <template>
@@ -15,10 +17,14 @@ const preset = ref('Today')
     selection-mode="range"
     :number-of-months="2"
     :max-date="new Date()"
+    disabled
   >
   </ACDateSelector>
+  <Select disabled></Select>
   <!-- <DatePicker></DatePicker> -->
   <!-- <Select></Select> -->
+   <!-- <Button @click="visible = true">Open Drawer</Button> -->
+   <!-- <ACDrawer v-model:visible="visible" :append-to="appOutletShadow">Hello from the drawer</ACDrawer> -->
 </template>
 
 <style scoped>
