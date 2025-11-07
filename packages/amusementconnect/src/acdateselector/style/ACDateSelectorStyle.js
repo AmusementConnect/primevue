@@ -1,21 +1,20 @@
 import { style } from '@ac/acprimeuix-styles/acdateselector';
 import BaseStyle from '@primevue/core/base/style';
 
-console.log(style);
-
 const inlineStyles = {
     root: ({ props }) => ({ position: props.appendTo === 'self' || props.showClear ? 'relative' : undefined })
 };
 
 const classes = {
-    root: ({ instance, state }) => [
+    root: ({ instance, state, props }) => [
         'ac-datepicker p-component p-inputwrapper',
         {
             'p-invalid': instance.$invalid,
             'p-inputwrapper-filled': instance.$filled,
             'p-inputwrapper-focus': state.focused || state.overlayVisible,
             'p-focus': state.focused || state.overlayVisible,
-            'ac-datepicker-fluid': instance.$fluid
+            'ac-datepicker-fluid': instance.$fluid,
+            'p-disabled': props.disabled
         }
     ],
     pcInputText: 'ac-datepicker-input',
