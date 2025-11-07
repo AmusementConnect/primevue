@@ -16,7 +16,7 @@
         ".": "./src/index.js",
         "./acdateselector": "./src/acdateselector/ACDateSelector.vue",
         "./acdateselector/style": "./src/acdateselector/style/ACDateSelectorStyle.js",
-        "./acdrawer": "./src/acdrawer/ACdrawer.vue",
+        "./acdrawer": "./src/acdrawer/ACDrawer.vue",
         "./acdrawer/style": "./src/acdrawer/style/ACDrawerStyle.js",
         "./*": "./*"
     },
