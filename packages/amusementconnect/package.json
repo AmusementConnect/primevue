@@ -16,6 +16,8 @@
         ".": "./src/index.js",
         "./acdateselector": "./src/acdateselector/ACDateSelector.vue",
         "./acdateselector/style": "./src/acdateselector/style/ACDateSelectorStyle.js",
+        "./acdrawer": "./src/acdrawer/ACdrawer.vue",
+        "./acdrawer/style": "./src/acdrawer/style/ACDrawerStyle.js",
         "./*": "./*"
     },
     "publishConfig": {
@@ -41,7 +43,7 @@
         "rollup-plugin-vue": "^6.0.0-beta.9"
     },
     "dependencies": {
-        "@ac/acprimeuix-styles": "0.0.1",
+        "@ac/acprimeuix-styles": "0.0.2",
         "dayjs": "^1.11.18"
     },
     "peerDependencies": {
