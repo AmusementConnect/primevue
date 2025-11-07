@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,7 +32,7 @@ const indexContent = `// ACPrimevue Packages
 export { default as ACDateSelector } from './acdateselector/ACDateSelector.vue';
 export { default as ACDateSelectorStyle } from './acdateselector/style/ACDateSelectorStyle.js';
 export { default as ACDrawer } from './acdrawer/ACDrawer.vue';
-export { default as ACDrawerSelectorStyle } from './acdrawer/style/ACDrawerStyle.js';
+export { default as ACDrawerStyle } from './acdrawer/style/ACDrawerStyle.js';
 `;
 
 fs.writeFileSync(path.resolve(__root, INPUT_DIR, 'index.js'), indexContent);
