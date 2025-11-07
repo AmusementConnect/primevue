@@ -55,19 +55,76 @@ stages:
         echo "=========================="
       displayName: "Directory Structure"
 
-    # Install dependencies with logging
+    # Install dependencies with extensive debugging
     - script: |
-        echo "=== Installing Dependencies ==="
+        echo "=== Installing Dependencies (Enhanced Debug) ==="
         cd packages/amusementconnect
         echo "Current directory: $(pwd)"
-        echo "Package.json exists: $(ls -la package.json)"
-        echo "Starting npm install..."
-        npm install --include=dev --no-cache --verbose
-        echo "Installation complete. Checking node_modules..."
-        ls -la node_modules/ | head -10
-        echo "Checking for critical dependencies..."
-        echo "rollup: $(ls node_modules/.bin/rollup 2>/dev/null || echo 'NOT FOUND')"
-        echo "cross-env: $(ls node_modules/.bin/cross-env 2>/dev/null || echo 'NOT FOUND')"
+        
+        # Show initial state
+        echo "--- Before Installation ---"
+        echo "Current .npmrc:"
+        cat .npmrc || echo "No .npmrc found"
+        echo ""
+        echo "Node modules before install:"
+        ls -la node_modules/ 2>/dev/null || echo "No node_modules directory"
+        echo ""
+        
+        # Backup and remove .npmrc
+        echo "Backing up .npmrc..."
+        cp .npmrc .npmrc.backup || echo "No .npmrc to backup"
+        rm -f .npmrc
+        
+        # Clean install environment
+        echo "--- Cleaning Environment ---"
+        npm cache clean --force
+        rm -rf node_modules
+        rm -rf package-lock.json
+        
+        # # Install with explicit registry
+        # echo "--- Installing from Public Registry ---"
+        # echo "Installing with explicit public registry..."
+        # npm install --include=dev --registry=https://registry.npmjs.org/ --verbose
+        
+        # Verify installation
+        echo "--- Post-Installation Verification ---"
+        echo "Node modules after install:"
+        ls -la node_modules/ | head -20
+        echo ""
+        echo "Checking @rollup directory:"
+        ls -la node_modules/@rollup/ || echo "@rollup directory not found"
+        echo ""
+        echo "Checking plugin-alias specifically:"
+        ls -la node_modules/@rollup/plugin-alias/ || echo "plugin-alias not found"
+        echo ""
+        echo "Checking if plugin-alias main file exists:"
+        ls -la node_modules/@rollup/plugin-alias/dist/es/index.js || echo "Main file not found"
+        echo ""
+        echo "Package.json verification:"
+        cat node_modules/@rollup/plugin-alias/package.json | head -10 || echo "Package.json not found"
+        echo ""
+        
+        # Try to import the package with Node.js
+        echo "Testing Node.js import:"
+        node -e "
+        try {
+          const alias = require('@rollup/plugin-alias');
+          console.log('✅ CommonJS import successful');
+        } catch (e) {
+          console.log('❌ CommonJS import failed:', e.message);
+        }
+        
+        try {
+          import('@rollup/plugin-alias').then(() => {
+            console.log('✅ ES module import successful');
+          }).catch(e => {
+            console.log('❌ ES module import failed:', e.message);
+          });
+        } catch (e) {
+          console.log('❌ ES module import failed:', e.message);
+        }
+        " || echo "Node test failed"
+        
         echo "==============================="
       displayName: "Install Dependencies"
 
