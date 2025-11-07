@@ -55,6 +55,11 @@ stages:
         echo "=========================="
       displayName: "Directory Structure"
 
+    # auth with amusement connect private registry
+    - task: npmAuthenticate@0
+      inputs:
+        workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
+
     # Install dependencies with logging
     - script: |
         echo "=== Installing Dependencies ==="
@@ -99,11 +104,6 @@ stages:
         cat .npmrc || echo ".npmrc not found"
         echo "====================================="
       displayName: "Registry Info"
-
-    # auth with amusement connect private registry
-    - task: npmAuthenticate@0
-      inputs:
-        workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
 
     # Publish with logging
     - script: |
