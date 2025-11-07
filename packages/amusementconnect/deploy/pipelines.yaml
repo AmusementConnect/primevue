@@ -55,11 +55,6 @@ stages:
         echo "=========================="
       displayName: "Directory Structure"
 
-    # auth with amusement connect private registry
-    - task: npmAuthenticate@0
-      inputs:
-        workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
-
     # Install dependencies with logging
     - script: |
         echo "=== Installing Dependencies ==="
@@ -95,6 +90,11 @@ stages:
         ls -la dist/ || echo "Dist directory not found"
         echo "========================"
       displayName: "Build Package"
+
+    # auth with amusement connect private registry
+    - task: npmAuthenticate@0
+      inputs:
+        workingFile: $(Build.SourcesDirectory)/packages/amusementconnect/.npmrc
 
     # Registry authentication with logging
     - script: |
