@@ -1,0 +1,11 @@
+{
+    "main": "./ACDrawer.vue",
+    "module": "./ACDrawer.vue",
+    "types": "./ACDrawer.d.ts",
+    "browser": {
+        "./sfc": "./ACDrawer.vue"
+    },
+    "sideEffects": [
+        "*.vue"
+    ]
+}
