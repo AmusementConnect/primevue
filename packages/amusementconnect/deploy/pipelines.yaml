@@ -74,20 +74,8 @@ stages:
         npm config list
         echo ""
         
-        # Completely reset npm configuration
-        echo "--- Resetting NPM Config ---"
-        # Remove any existing .npmrc files
-        rm -f .npmrc
-        rm -f ~/.npmrc
-        rm -f /etc/npmrc
-        
         # Clear npm cache completely
         npm cache clean --force
-        
-        # Set explicit registry and clear all config
-        npm config delete registry 2>/dev/null || true
-        npm config set registry https://registry.npmjs.org/
-        npm config delete //pkgs.dev.azure.com/AmusementConnect/_packaging/AmusementConnect/npm/registry/:_authToken 2>/dev/null || true
         
         echo "Updated npm config:"
         npm config list
