@@ -1,6 +1,6 @@
 {
     "name": "@ac/ac-primevue",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "author": "PrimeTek Informatics",
     "description": "Customized PrimeVue components for use within Amusement Connect organization.",
     "license": "MIT",
@@ -43,7 +43,8 @@
     },
     "dependencies": {
         "@ac/acprimeuix-styles": "0.0.2",
-        "dayjs": "^1.11.18"
+        "dayjs": "^1.11.18",
+        "fs-extra": "^11.3.2"
     },
     "peerDependencies": {
         "@primeuix/styled": "^0.7.4",
