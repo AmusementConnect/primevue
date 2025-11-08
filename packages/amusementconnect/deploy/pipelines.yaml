@@ -55,75 +55,83 @@ stages:
         echo "=========================="
       displayName: "Directory Structure"
 
-    # Install dependencies with extensive debugging
+    # Install dependencies with complete registry override
     - script: |
-        echo "=== Installing Dependencies (Enhanced Debug) ==="
+        echo "=== Installing Dependencies (Complete Override) ==="
         cd packages/amusementconnect
         echo "Current directory: $(pwd)"
         
         # Show initial state
-        echo "--- Before Installation ---"
-        echo "Current .npmrc:"
-        cat .npmrc || echo "No .npmrc found"
-        echo ""
-        echo "Node modules before install:"
-        ls -la node_modules/ 2>/dev/null || echo "No node_modules directory"
+        echo "--- Environment Check ---"
+        echo "Node version: $(node --version)"
+        echo "NPM version: $(npm --version)"
+        echo "NPM config list:"
+        npm config list
         echo ""
         
-        # Backup and remove .npmrc
-        echo "Backing up .npmrc..."
-        cp .npmrc .npmrc.backup || echo "No .npmrc to backup"
+        # Completely reset npm configuration
+        echo "--- Resetting NPM Config ---"
+        # Remove any existing .npmrc files
         rm -f .npmrc
+        rm -f ~/.npmrc
+        rm -f /etc/npmrc
         
-        # Clean install environment
-        echo "--- Cleaning Environment ---"
+        # Clear npm cache completely
         npm cache clean --force
+        
+        # Set explicit registry and clear all config
+        npm config delete registry 2>/dev/null || true
+        npm config set registry https://registry.npmjs.org/
+        npm config delete //pkgs.dev.azure.com/AmusementConnect/_packaging/AmusementConnect/npm/registry/:_authToken 2>/dev/null || true
+        
+        echo "Updated npm config:"
+        npm config list
+        echo ""
+        
+        # Clean environment
+        echo "--- Cleaning Environment ---"
         rm -rf node_modules
         rm -rf package-lock.json
         
-        # # Install with explicit registry
-        # echo "--- Installing from Public Registry ---"
-        # echo "Installing with explicit public registry..."
-        # npm install --include=dev --registry=https://registry.npmjs.org/ --verbose
+        # Install with maximum verbosity and error handling
+        echo "--- Installing Dependencies ---"
+        echo "Attempting npm install..."
+        
+        if npm install --include=dev --registry=https://registry.npmjs.org/ --loglevel=verbose; then
+            echo "✅ npm install succeeded"
+        else
+            echo "❌ npm install failed with exit code $?"
+            echo "Trying alternative installation method..."
+            
+            # Try installing each critical package individually
+            echo "Installing rollup packages individually..."
+            npm install --registry=https://registry.npmjs.org/ rollup@^4.52.5 || echo "rollup install failed"
+            npm install --registry=https://registry.npmjs.org/ @rollup/plugin-alias@^5.1.0 || echo "plugin-alias install failed"
+            npm install --registry=https://registry.npmjs.org/ @rollup/plugin-babel@^6.0.3 || echo "plugin-babel install failed"
+            npm install --registry=https://registry.npmjs.org/ @rollup/plugin-commonjs@^28.0.8 || echo "plugin-commonjs install failed"
+            npm install --registry=https://registry.npmjs.org/ @rollup/plugin-node-resolve@^15.2.3 || echo "plugin-node-resolve install failed"
+            npm install --registry=https://registry.npmjs.org/ @rollup/plugin-terser@^0.4.4 || echo "plugin-terser install failed"
+            npm install --registry=https://registry.npmjs.org/ cross-env@^10.1.0 || echo "cross-env install failed"
+            npm install --registry=https://registry.npmjs.org/ rollup-plugin-postcss@^4.0.0 || echo "rollup-plugin-postcss install failed"
+            npm install --registry=https://registry.npmjs.org/ rollup-plugin-vue@^6.0.0-beta.9 || echo "rollup-plugin-vue install failed"
+            npm install --registry=https://registry.npmjs.org/ dayjs@^1.11.18 || echo "dayjs install failed"
+        fi
         
         # Verify installation
         echo "--- Post-Installation Verification ---"
-        echo "Node modules after install:"
-        ls -la node_modules/ | head -20
-        echo ""
-        echo "Checking @rollup directory:"
-        ls -la node_modules/@rollup/ || echo "@rollup directory not found"
-        echo ""
-        echo "Checking plugin-alias specifically:"
-        ls -la node_modules/@rollup/plugin-alias/ || echo "plugin-alias not found"
-        echo ""
-        echo "Checking if plugin-alias main file exists:"
-        ls -la node_modules/@rollup/plugin-alias/dist/es/index.js || echo "Main file not found"
-        echo ""
-        echo "Package.json verification:"
-        cat node_modules/@rollup/plugin-alias/package.json | head -10 || echo "Package.json not found"
-        echo ""
-        
-        # Try to import the package with Node.js
-        echo "Testing Node.js import:"
-        node -e "
-        try {
-          const alias = require('@rollup/plugin-alias');
-          console.log('✅ CommonJS import successful');
-        } catch (e) {
-          console.log('❌ CommonJS import failed:', e.message);
-        }
-        
-        try {
-          import('@rollup/plugin-alias').then(() => {
-            console.log('✅ ES module import successful');
-          }).catch(e => {
-            console.log('❌ ES module import failed:', e.message);
-          });
-        } catch (e) {
-          console.log('❌ ES module import failed:', e.message);
-        }
-        " || echo "Node test failed"
+        if [ -d "node_modules" ]; then
+            echo "✅ node_modules directory created"
+            echo "Node modules contents:"
+            ls -la node_modules/ | head -20
+            
+            echo "Checking critical packages:"
+            ls -la node_modules/@rollup/plugin-alias/ 2>/dev/null && echo "✅ @rollup/plugin-alias found" || echo "❌ @rollup/plugin-alias missing"
+            ls -la node_modules/rollup/ 2>/dev/null && echo "✅ rollup found" || echo "❌ rollup missing"
+        else
+            echo "❌ node_modules directory was not created"
+            echo "Current directory contents:"
+            ls -la
+        fi
         
         echo "==============================="
       displayName: "Install Dependencies"
