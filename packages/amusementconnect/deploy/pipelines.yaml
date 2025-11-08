@@ -97,7 +97,7 @@ stages:
         echo "--- Installing Dependencies ---"
         echo "Attempting npm install..."
         
-        if npm install --include=dev --registry=https://registry.npmjs.org/ --loglevel=verbose; then
+        if npm install --include=dev --loglevel=verbose; then
             echo "✅ npm install succeeded"
         else
             echo "❌ npm install failed with exit code $?"
