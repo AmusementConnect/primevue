@@ -4,7 +4,7 @@
  *
  * [Live Demo](https://primevue.org/drawer)
  *
- * @module drawerstyle
+ * @module acdrawerstyle
  *
  */
 import type { BaseStyle } from '@primevue/core/base/style';

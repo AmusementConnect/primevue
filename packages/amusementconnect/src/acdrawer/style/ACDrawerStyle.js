@@ -1,4 +1,4 @@
-import { style } from '@primeuix/styles/drawer';
+import { style } from '@ac/acprimeuix-styles/acdrawer';
 import BaseStyle from '@primevue/core/base/style';
 
 const inlineStyles = {
