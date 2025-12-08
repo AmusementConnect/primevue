@@ -2,7 +2,6 @@
 import ACDateSelectorStyle from '@ac/ac-primevue/acdateselector/style';
 import BaseInput from '@primevue/core/baseinput';
 
-
 export default {
     name: 'BaseACDateSelector',
     extends: BaseInput,
@@ -236,17 +235,11 @@ export default {
             type: Number,
             default: 0
         },
-        presetModelValue: {
-            type: String,
-            required: true,
-            default: "Custom Range"
-        },
         excludedPresets: {
             type: Array,
             required: false,
             default: () => []
         }
-
     },
     style: ACDateSelectorStyle,
     provide() {

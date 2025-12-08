@@ -1,6 +1,6 @@
 {
-    "main": "./ACDateSelector.vue",
-    "module": "./ACDateSelector.vue",
+    "main": "index.js",
+    "module": "index.js",
     "types": "./ACDateSelector.d.ts",
     "browser": {
         "./sfc": "./ACDateSelector.vue"

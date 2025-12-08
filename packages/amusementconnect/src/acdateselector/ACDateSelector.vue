@@ -24,8 +24,8 @@
             @blur="onBlur"
             @keydown="onKeyDown"
         >
-            <strong>{{ presetModelValue }}</strong>
-            <CalendarIcon/>
+            <strong>{{ presetDisplayNames[internalPresetValue] || internalPresetValue }}</strong>
+            <CalendarIcon />
             {{ inputFieldValue || placeholder }}
         </span>
         <slot v-if="showClear && !inline" name="clearicon" :class="cx('clearIcon')" :clearCallback="onClearClick">
@@ -74,22 +74,11 @@
                 >
                     <div :class="cx('panelContent')">
                         <div :class="cx('presetListContainer')">
-                            <span style="font-weight: 500;">Presets</span>
+                            <span style="font-weight: 500">Presets</span>
                             <ul :class="cx('presetList')">
-                                <li
-                                    v-for="preset in Object.keys(dateRangeMap).filter((key) => !excludedPresets.includes(key))"
-                                    :key="preset"
-                                    :class="cx('presetListItem')"
-                                >
-                                    <RadioButton
-                                        :modelValue="presetModelValue"
-                                        :input-id="'preset-' + preset"
-                                        name="date-preset"
-                                        :value="preset"
-                                        :tab-index="0"
-                                        @update:modelValue="(value) => $emit('update:presetModelValue', value)"
-                                    />
-                                    <label :for="'preset-' + preset">{{ preset }}</label>
+                                <li v-for="preset in Object.keys(dateRangeMap).filter((key) => !excludedPresets.includes(key))" :key="preset" :class="cx('presetListItem')">
+                                    <RadioButton :modelValue="internalPresetValue" :input-id="'preset-' + preset" name="date-preset" :value="preset" :tab-index="0" @update:modelValue="onPresetChange" />
+                                    <label :for="'preset-' + preset">{{ presetDisplayNames[preset] || preset }}</label>
                                 </li>
                             </ul>
                         </div>
@@ -334,7 +323,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </template>
                         <div v-if="(showTime || timeOnly) && currentView === 'date'" :class="cx('timePicker')" :data-p="timePickerDataP" v-bind="ptm('timePicker')">
                             <div :class="cx('hourPicker')" v-bind="ptm('hourPicker')" data-pc-group-section="timepickerContainer">
@@ -573,8 +561,7 @@
                             </slot>
                         </div>
                     </div>
-                    <slot name="footer">
-                    </slot>
+                    <slot name="footer"> </slot>
                 </div>
             </transition>
         </Portal>
@@ -593,7 +580,7 @@ import ChevronLeftIcon from '@primevue/icons/chevronleft';
 import ChevronRightIcon from '@primevue/icons/chevronright';
 import ChevronUpIcon from '@primevue/icons/chevronup';
 import TimesIcon from '@primevue/icons/times';
-import dayjs from "dayjs/esm";
+import dayjs from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
 import updateLocale from 'dayjs/esm/plugin/updateLocale';
 import Button from 'primevue/button';
@@ -603,11 +590,12 @@ import Portal from 'primevue/portal';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import BaseACDateSelector from './BaseACDateSelector.vue';
+import { getCurrentPresetMap, presetDisplayNames, updatePresetMapWithMaxDate } from './presetMappings.js';
 
-dayjs.extend(quarterOfYear)
-dayjs.extend(updateLocale)
+dayjs.extend(quarterOfYear);
+dayjs.extend(updateLocale);
 
-dayjs.updateLocale('en', { weekStart: 1 })
+dayjs.updateLocale('en', { weekStart: 1 });
 
 export default {
     name: 'ACDateSelector',
@@ -647,20 +635,10 @@ export default {
             queryOrientation: null,
             focusedDateIndex: 0,
             rawValue: null,
+            internalPresetValue: 'CUSTOM',
             noOpOnPresetChange: false,
-            dateRangeMap: {
-                'Today': [dayjs().$d, dayjs().$d],
-                'Yesterday': [dayjs().subtract(1, 'day').$d, dayjs().subtract(1, 'day').$d],
-                'This Week': [dayjs().startOf('week').$d, dayjs().$d],
-                'Last Week': [dayjs().subtract(1, 'week').startOf('week').$d, dayjs().subtract(1, 'week').endOf('week').$d],
-                'This Month': [dayjs().startOf('month').$d, dayjs().$d],
-                'This Quarter': [dayjs().startOf('quarter').$d, dayjs().$d],
-                'Last Month': [dayjs().subtract(1, 'month').startOf('month').$d, dayjs().subtract(1, 'month').endOf('month').$d],
-                'Last Quarter': [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
-                'This Year': [dayjs().startOf('year').$d, dayjs().$d],
-                'Last Year': [dayjs().subtract(1, 'year').startOf('year').$d, dayjs().subtract(1, 'year').endOf('year').$d],
-                'Custom': []
-            }
+            dateRangeMap: this.$props.maxDate ? updatePresetMapWithMaxDate(this.$props.maxDate) : getCurrentPresetMap(),
+            presetDisplayNames: presetDisplayNames
         };
     },
     watch: {
@@ -679,19 +657,9 @@ export default {
                 if (this.$refs.clearIcon?.$el?.style) {
                     this.$refs.clearIcon.$el.style.display = isEmpty(newValue) ? 'none' : 'block';
                 }
-            }
-        },
-        presetModelValue: {
-            immediate: true,
-            handler(newValue) {
-                if (!this.noOpOnPresetChange) {
-                    if (newValue != 'Custom') {
-                        const dateRange = this.dateRangeMap[newValue]
-                        this.updateModel(dateRange)
-                    }
-                }
 
-                this.noOpOnPresetChange = false;
+                // Update internal preset based on modelValue
+                this.internalPresetValue = this.detectedPreset;
             }
         },
         showTime() {
@@ -787,6 +755,16 @@ export default {
         this.overlay = null;
     },
     methods: {
+        onPresetChange(presetName) {
+            this.internalPresetValue = presetName;
+
+            if (presetName !== 'CUSTOM') {
+                const dateRange = this.dateRangeMap[presetName];
+                if (dateRange && dateRange.length === 2) {
+                    this.updateModel(dateRange);
+                }
+            }
+        },
         isSelected(dateMeta) {
             if (this.rawValue) {
                 if (this.isSingleSelection()) {
@@ -1352,11 +1330,7 @@ export default {
                     let selectCustomRange = true;
                     for (const [key, range] of Object.entries(this.dateRangeMap)) {
                         if (dayjs(startDate).isSame(dayjs(range[0]), 'date')) {
-                            if (
-                                (dayjs(endDate).isSame(range[1], 'date') ||
-                                (endDate === null && ['Today', 'Yesterday'].includes(key))) &&
-                                !this.$props.excludedPresets.includes(key)
-                            ) {
+                            if ((dayjs(endDate).isSame(range[1], 'date') || (endDate === null && ['Today', 'Yesterday'].includes(key))) && !this.$props.excludedPresets.includes(key)) {
                                 this.$emit('update:presetModelValue', key);
                                 this.noOpOnPresetChange = true;
                                 selectCustomRange = false;
@@ -3018,6 +2992,42 @@ export default {
         }
     },
     computed: {
+        detectedPreset() {
+            if (!this.modelValue || !Array.isArray(this.modelValue) || this.modelValue.length !== 2) {
+                return 'CUSTOM';
+            }
+
+            // Get fresh preset mappings for comparison
+            const currentMappings = getCurrentPresetMap();
+
+            for (const [presetKey, presetRange] of Object.entries(currentMappings)) {
+                if (presetKey === 'CUSTOM') continue;
+
+                if (presetRange.length === 2) {
+                    const modelStart = new Date(this.modelValue[0]).toDateString();
+                    const modelEnd = this.modelValue[1] ? new Date(this.modelValue[1]).toDateString() : undefined;
+                    const presetStart = new Date(presetRange[0]).toDateString();
+                    const presetEnd = new Date(presetRange[1]).toDateString();
+
+                    // Check if this is a single-day preset (Today/Yesterday)
+                    const isSingleDayPreset = presetStart === presetEnd;
+
+                    if (isSingleDayPreset) {
+                        // Match if modelStart matches and either modelEnd is undefined or matches
+                        if (modelStart === presetStart && (!modelEnd || modelEnd === presetEnd)) {
+                            return presetKey;
+                        }
+                    } else {
+                        // Match both start and end for range presets
+                        if (modelStart === presetStart && modelEnd === presetEnd) {
+                            return presetKey;
+                        }
+                    }
+                }
+            }
+
+            return 'CUSTOM';
+        },
         viewDate() {
             let propValue = this.rawValue;
 
