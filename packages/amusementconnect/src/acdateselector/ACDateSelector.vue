@@ -1328,20 +1328,8 @@ export default {
                         endDate = null;
                         this.focusedDateIndex = 0;
                     }
+
                     modelVal = [startDate, endDate];
-                    let selectCustomRange = true;
-                    for (const [key, range] of Object.entries(this.dateRangeMap)) {
-                        if (dayjs(startDate).isSame(dayjs(range[0]), 'date')) {
-                            if ((dayjs(endDate).isSame(range[1], 'date') || (endDate === null && ['Today', 'Yesterday'].includes(key))) && !this.$props.excludedPresets.includes(key)) {
-                                this.$emit('update:presetModelValue', key);
-                                selectCustomRange = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (selectCustomRange) {
-                        this.$emit('update:presetModelValue', 'Custom');
-                    }
                 } else {
                     modelVal = [date, null];
                     this.focusedDateIndex = 0;
@@ -3004,7 +2992,7 @@ export default {
 
                 if (dayjs(modelStart).isSame(dayjs(presetStart), 'day')) {
                     if ((isSingleDayPreset && !modelEnd) || dayjs(modelEnd).isSame(dayjs(presetEnd), 'day')) {
-                        if (!this.internalPresetValue) {
+                        if (!this.internalPresetValue || this.internalPresetValue == 'CUSTOM') {
                             return presetKey;
                         } else if (presetKey == this.internalPresetValue) {
                             return presetKey;
