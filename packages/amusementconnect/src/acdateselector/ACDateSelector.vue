@@ -77,7 +77,7 @@
                             <span style="font-weight: 500">Presets</span>
                             <ul :class="cx('presetList')">
                                 <li v-for="preset in Object.keys(dateRangeMap).filter((key) => !excludedPresets.includes(key))" :key="preset" :class="cx('presetListItem')">
-                                    <RadioButton :modelValue="internalPresetValue" :input-id="'preset-' + preset" name="date-preset" :value="preset" :tab-index="0" @update:modelValue="onPresetChange" />
+                                    <RadioButton :modelValue="detectedPreset" :input-id="'preset-' + preset" name="date-preset" :value="preset" :tab-index="0" @update:modelValue="onPresetChange" />
                                     <label :for="'preset-' + preset">{{ presetDisplayNames[preset] || preset }}</label>
                                 </li>
                             </ul>
@@ -635,7 +635,7 @@ export default {
             queryOrientation: null,
             focusedDateIndex: 0,
             rawValue: null,
-            internalPresetValue: 'CUSTOM',
+            internalPresetValue: null,
             noOpOnPresetChange: false,
             dateRangeMap: getPresetMap({ maxDate: this.$props.maxDate, excludedPresets: this.$props.excludedPresets }),
             presetDisplayNames: presetDisplayNames
@@ -658,8 +658,10 @@ export default {
                     this.$refs.clearIcon.$el.style.display = isEmpty(newValue) ? 'none' : 'block';
                 }
 
-                // Update internal preset based on modelValue
-                this.internalPresetValue = this.detectedPreset;
+                if (!this.noOpOnPresetChange) {
+                    this.internalPresetValue = this.detectedPreset;
+                    this.noOpOnPresetChange = true;
+                }
             }
         },
         showTime() {
@@ -1332,7 +1334,6 @@ export default {
                         if (dayjs(startDate).isSame(dayjs(range[0]), 'date')) {
                             if ((dayjs(endDate).isSame(range[1], 'date') || (endDate === null && ['Today', 'Yesterday'].includes(key))) && !this.$props.excludedPresets.includes(key)) {
                                 this.$emit('update:presetModelValue', key);
-                                this.noOpOnPresetChange = true;
                                 selectCustomRange = false;
                                 break;
                             }
@@ -2993,33 +2994,19 @@ export default {
     },
     computed: {
         detectedPreset() {
-            if (!this.modelValue || !Array.isArray(this.modelValue) || this.modelValue.length !== 2) {
-                return 'CUSTOM';
-            }
-
             // Get fresh preset mappings for comparison
             const currentMappings = this.dateRangeMap;
+            const [modelStart, modelEnd] = this.modelValue;
 
             for (const [presetKey, presetRange] of Object.entries(currentMappings)) {
-                if (presetKey === 'CUSTOM') continue;
+                const [presetStart, presetEnd] = presetRange;
+                const isSingleDayPreset = dayjs(presetStart).isSame(dayjs(presetEnd), 'day');
 
-                if (presetRange.length === 2) {
-                    const modelStart = new Date(this.modelValue[0]).toDateString();
-                    const modelEnd = this.modelValue[1] ? new Date(this.modelValue[1]).toDateString() : undefined;
-                    const presetStart = new Date(presetRange[0]).toDateString();
-                    const presetEnd = new Date(presetRange[1]).toDateString();
-
-                    // Check if this is a single-day preset (Today/Yesterday)
-                    const isSingleDayPreset = presetStart === presetEnd;
-
-                    if (isSingleDayPreset) {
-                        // Match if modelStart matches and either modelEnd is undefined or matches
-                        if (modelStart === presetStart && (!modelEnd || modelEnd === presetEnd)) {
+                if (dayjs(modelStart).isSame(dayjs(presetStart), 'day')) {
+                    if ((isSingleDayPreset && !modelEnd) || dayjs(modelEnd).isSame(dayjs(presetEnd), 'day')) {
+                        if (!this.internalPresetValue) {
                             return presetKey;
-                        }
-                    } else {
-                        // Match both start and end for range presets
-                        if (modelStart === presetStart && modelEnd === presetEnd) {
+                        } else if (presetKey == this.internalPresetValue) {
                             return presetKey;
                         }
                     }
