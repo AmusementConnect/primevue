@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import quarterOfYear from 'dayjs/plugin/quarterOfYear';
+import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
 import updateLocale from 'dayjs/plugin/updateLocale';
 
 dayjs.extend(quarterOfYear);
