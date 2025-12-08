@@ -28,6 +28,12 @@ writeFileSync(pkg, JSON.stringify(pkgJson, null, 4));
 const indexContent = `// ACPrimevue Packages
 export { default as ACDateSelector } from './acdateselector/ACDateSelector.vue';
 export { default as ACDateSelectorStyle } from './acdateselector/style/ACDateSelectorStyle.js';
+export { 
+    acDateSelectorPresetMap, 
+    presetDisplayNames, 
+    getCurrentPresetMap,
+    updatePresetMapWithMaxDate 
+} from './acdateselector/presetMappings.js';
 export { default as ACDrawer } from './acdrawer/ACDrawer.vue';
 export { default as ACDrawerStyle } from './acdrawer/style/ACDrawerStyle.js';
 `;
@@ -38,6 +44,12 @@ writeFileSync(path.resolve(__root, INPUT_DIR, 'index.js'), indexContent);
 const umdContent = `// UMD build for ACPrimevue Components
 export { default as ACDateSelector } from '../acdateselector/ACDateSelector.vue';
 export { default as ACDateSelectorStyle } from '../acdateselector/style/ACDateSelectorStyle.js';
+export { 
+    acDateSelectorPresetMap, 
+    presetDisplayNames, 
+    getCurrentPresetMap,
+    updatePresetMapWithMaxDate 
+} from '../acdateselector/presetMappings.js';
 export { default as ACDrawer } from '../acdrawer/ACDrawer.vue';
 export { default as ACDrawerStyle } from '../acdrawer/style/ACDrawerStyle.js';
 `;

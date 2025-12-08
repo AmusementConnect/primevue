@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
-import quarterOfYear from 'dayjs/plugin/quarterOfYear';
+// import { quarterOfYear } from 'dayjs/plugin/quarterOfYear';
 import updateLocale from 'dayjs/plugin/updateLocale';
 
-dayjs.extend(quarterOfYear);
+// dayjs.extend(quarterOfYear);
 dayjs.extend(updateLocale);
 dayjs.updateLocale('en', { weekStart: 1 });
 
@@ -12,9 +12,9 @@ export const acDateSelectorPresetMap = {
     THIS_WEEK: [dayjs().startOf('week').$d, dayjs().$d],
     LAST_WEEK: [dayjs().subtract(1, 'week').startOf('week').$d, dayjs().subtract(1, 'week').endOf('week').$d],
     THIS_MONTH: [dayjs().startOf('month').$d, dayjs().$d],
-    THIS_QUARTER: [dayjs().startOf('quarter').$d, dayjs().$d],
+    // THIS_QUARTER: [dayjs().startOf('quarter').$d, dayjs().$d],
     LAST_MONTH: [dayjs().subtract(1, 'month').startOf('month').$d, dayjs().subtract(1, 'month').endOf('month').$d],
-    LAST_QUARTER: [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
+    // LAST_QUARTER: [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
     THIS_YEAR: [dayjs().startOf('year').$d, dayjs().$d],
     LAST_YEAR: [dayjs().subtract(1, 'year').startOf('year').$d, dayjs().subtract(1, 'year').endOf('year').$d],
     CUSTOM: []
@@ -43,9 +43,9 @@ export function getCurrentPresetMap() {
         THIS_WEEK: [dayjs().startOf('week').$d, dayjs().$d],
         LAST_WEEK: [dayjs().subtract(1, 'week').startOf('week').$d, dayjs().subtract(1, 'week').endOf('week').$d],
         THIS_MONTH: [dayjs().startOf('month').$d, dayjs().$d],
-        THIS_QUARTER: [dayjs().startOf('quarter').$d, dayjs().$d],
+        // THIS_QUARTER: [dayjs().startOf('quarter').$d, dayjs().$d],
         LAST_MONTH: [dayjs().subtract(1, 'month').startOf('month').$d, dayjs().subtract(1, 'month').endOf('month').$d],
-        LAST_QUARTER: [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
+        // LAST_QUARTER: [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
         THIS_YEAR: [dayjs().startOf('year').$d, dayjs().$d],
         LAST_YEAR: [dayjs().subtract(1, 'year').startOf('year').$d, dayjs().subtract(1, 'year').endOf('year').$d],
         CUSTOM: []
