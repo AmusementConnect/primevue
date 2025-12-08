@@ -1,20 +1,20 @@
 import dayjs from 'dayjs';
-// import { quarterOfYear } from 'dayjs/plugin/quarterOfYear';
+import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import updateLocale from 'dayjs/plugin/updateLocale';
 
-// dayjs.extend(quarterOfYear);
+dayjs.extend(quarterOfYear);
 dayjs.extend(updateLocale);
 dayjs.updateLocale('en', { weekStart: 1 });
 
-export const acDateSelectorPresetMap = {
+const AC_DATE_SELECTOR_PRESET_MAP = {
     TODAY: [dayjs().$d, dayjs().$d],
     YESTERDAY: [dayjs().subtract(1, 'day').$d, dayjs().subtract(1, 'day').$d],
     THIS_WEEK: [dayjs().startOf('week').$d, dayjs().$d],
     LAST_WEEK: [dayjs().subtract(1, 'week').startOf('week').$d, dayjs().subtract(1, 'week').endOf('week').$d],
     THIS_MONTH: [dayjs().startOf('month').$d, dayjs().$d],
-    // THIS_QUARTER: [dayjs().startOf('quarter').$d, dayjs().$d],
+    THIS_QUARTER: [dayjs().startOf('quarter').$d, dayjs().$d],
     LAST_MONTH: [dayjs().subtract(1, 'month').startOf('month').$d, dayjs().subtract(1, 'month').endOf('month').$d],
-    // LAST_QUARTER: [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
+    LAST_QUARTER: [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
     THIS_YEAR: [dayjs().startOf('year').$d, dayjs().$d],
     LAST_YEAR: [dayjs().subtract(1, 'year').startOf('year').$d, dayjs().subtract(1, 'year').endOf('year').$d],
     CUSTOM: []
@@ -35,43 +35,37 @@ export const presetDisplayNames = {
     CUSTOM: 'Custom'
 };
 
-// Helper function to get current date ranges (for reactive updates)
-export function getCurrentPresetMap() {
-    return {
-        TODAY: [dayjs().$d, dayjs().$d],
-        YESTERDAY: [dayjs().subtract(1, 'day').$d, dayjs().subtract(1, 'day').$d],
-        THIS_WEEK: [dayjs().startOf('week').$d, dayjs().$d],
-        LAST_WEEK: [dayjs().subtract(1, 'week').startOf('week').$d, dayjs().subtract(1, 'week').endOf('week').$d],
-        THIS_MONTH: [dayjs().startOf('month').$d, dayjs().$d],
-        // THIS_QUARTER: [dayjs().startOf('quarter').$d, dayjs().$d],
-        LAST_MONTH: [dayjs().subtract(1, 'month').startOf('month').$d, dayjs().subtract(1, 'month').endOf('month').$d],
-        // LAST_QUARTER: [dayjs().subtract(1, 'quarter').startOf('quarter').$d, dayjs().subtract(1, 'quarter').endOf('quarter').$d],
-        THIS_YEAR: [dayjs().startOf('year').$d, dayjs().$d],
-        LAST_YEAR: [dayjs().subtract(1, 'year').startOf('year').$d, dayjs().subtract(1, 'year').endOf('year').$d],
-        CUSTOM: []
-    };
-}
-// Utility function to update preset map with maxDate constraint
-export function updatePresetMapWithMaxDate(maxDate) {
-    const maxDay = dayjs(maxDate);
-    const currentPresets = getCurrentPresetMap();
+// Helper function to get current date ranges with optional filtering and maxDate constraint
+export function getPresetMap(options = {}) {
+    const { maxDate, excludedPresets = [] } = options;
+
+    // If no options provided, return the static map
+    if (!maxDate && excludedPresets.length === 0) {
+        return AC_DATE_SELECTOR_PRESET_MAP;
+    }
+
     const updatedMap = {};
 
-    Object.keys(currentPresets).forEach((key) => {
+    Object.keys(AC_DATE_SELECTOR_PRESET_MAP).forEach((key) => {
+        // Skip excluded presets
+        if (excludedPresets.includes(key)) {
+            return;
+        }
+
         if (key === 'CUSTOM') {
             updatedMap[key] = [];
             return;
         }
 
-        const [start, end] = currentPresets[key];
-        const startDate = dayjs(start);
+        const [start, end] = AC_DATE_SELECTOR_PRESET_MAP[key];
 
-        // Exclude preset if maxDate is before start date
-        if (maxDay.isBefore(startDate, 'day')) {
+        // If maxDate is set and start date is after maxDate, exclude preset
+        if (maxDate && dayjs(start).isAfter(maxDate, 'day')) {
             return;
         }
 
-        const endDate = dayjs(end).isAfter(maxDay) ? maxDay.$d : end;
+        // Constrain end date to maxDate if applicable
+        const endDate = maxDate && dayjs(end).isAfter(maxDate, 'day') ? maxDate : end;
         updatedMap[key] = [start, endDate];
     });
 

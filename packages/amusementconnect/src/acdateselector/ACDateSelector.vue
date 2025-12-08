@@ -590,7 +590,7 @@ import Portal from 'primevue/portal';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import BaseACDateSelector from './BaseACDateSelector.vue';
-import { getCurrentPresetMap, presetDisplayNames, updatePresetMapWithMaxDate } from './presetMappings.js';
+import { getPresetMap, presetDisplayNames } from './presetMappings.js';
 
 dayjs.extend(quarterOfYear);
 dayjs.extend(updateLocale);
@@ -637,7 +637,7 @@ export default {
             rawValue: null,
             internalPresetValue: 'CUSTOM',
             noOpOnPresetChange: false,
-            dateRangeMap: this.$props.maxDate ? updatePresetMapWithMaxDate(this.$props.maxDate) : getCurrentPresetMap(),
+            dateRangeMap: getPresetMap({ maxDate: this.$props.maxDate, excludedPresets: this.$props.excludedPresets }),
             presetDisplayNames: presetDisplayNames
         };
     },
@@ -2998,7 +2998,7 @@ export default {
             }
 
             // Get fresh preset mappings for comparison
-            const currentMappings = getCurrentPresetMap();
+            const currentMappings = this.dateRangeMap;
 
             for (const [presetKey, presetRange] of Object.entries(currentMappings)) {
                 if (presetKey === 'CUSTOM') continue;

@@ -29,10 +29,8 @@ const indexContent = `// ACPrimevue Packages
 export { default as ACDateSelector } from './acdateselector/ACDateSelector.vue';
 export { default as ACDateSelectorStyle } from './acdateselector/style/ACDateSelectorStyle.js';
 export { 
-    acDateSelectorPresetMap, 
     presetDisplayNames, 
-    getCurrentPresetMap,
-    updatePresetMapWithMaxDate 
+    getPresetMap
 } from './acdateselector/presetMappings.js';
 export { default as ACDrawer } from './acdrawer/ACDrawer.vue';
 export { default as ACDrawerStyle } from './acdrawer/style/ACDrawerStyle.js';
@@ -45,10 +43,8 @@ const umdContent = `// UMD build for ACPrimevue Components
 export { default as ACDateSelector } from '../acdateselector/ACDateSelector.vue';
 export { default as ACDateSelectorStyle } from '../acdateselector/style/ACDateSelectorStyle.js';
 export { 
-    acDateSelectorPresetMap, 
     presetDisplayNames, 
-    getCurrentPresetMap,
-    updatePresetMapWithMaxDate 
+    getPresetMap
 } from '../acdateselector/presetMappings.js';
 export { default as ACDrawer } from '../acdrawer/ACDrawer.vue';
 export { default as ACDrawerStyle } from '../acdrawer/style/ACDrawerStyle.js';
