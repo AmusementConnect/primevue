@@ -638,7 +638,8 @@ export default {
             internalPresetValue: null,
             noOpOnPresetChange: false,
             dateRangeMap: getPresetMap({ maxDate: this.$props.maxDate, excludedPresets: this.$props.excludedPresets }),
-            presetDisplayNames: presetDisplayNames
+            presetDisplayNames: presetDisplayNames,
+            explicitCustomPresetSelection: false
         };
     },
     watch: {
@@ -658,9 +659,8 @@ export default {
                     this.$refs.clearIcon.$el.style.display = isEmpty(newValue) ? 'none' : 'block';
                 }
 
-                if (!this.noOpOnPresetChange) {
+                if (!this.internalPresetValue) {
                     this.internalPresetValue = this.detectedPreset;
-                    this.noOpOnPresetChange = true;
                 }
             }
         },
@@ -760,7 +760,10 @@ export default {
         onPresetChange(presetName) {
             this.internalPresetValue = presetName;
 
-            if (presetName !== 'CUSTOM') {
+            if (presetName == 'CUSTOM') {
+                this.explicitCustomPresetSelection = true;
+            } else {
+                this.explicitCustomPresetSelection = false;
                 const dateRange = this.dateRangeMap[presetName];
                 if (dateRange && dateRange.length === 2) {
                     this.updateModel(dateRange);
@@ -1253,6 +1256,8 @@ export default {
             if (this.disabled || !dateMeta.selectable) {
                 return;
             }
+
+            this.explicitCustomPresetSelection = false;
 
             find(this.overlay, 'table td span:not([data-p-disabled="true"])').forEach((cell) => (cell.tabIndex = -1));
 
@@ -2986,16 +2991,21 @@ export default {
             const currentMappings = this.dateRangeMap;
             const [modelStart, modelEnd] = this.modelValue;
 
+            if (this.explicitCustomPresetSelection && this.internalPresetValue == 'CUSTOM') {
+                this.explicitCustomPresetSelection = false;
+                return 'CUSTOM';
+            }
+
             for (const [presetKey, presetRange] of Object.entries(currentMappings)) {
                 const [presetStart, presetEnd] = presetRange;
                 const isSingleDayPreset = dayjs(presetStart).isSame(dayjs(presetEnd), 'day');
 
                 if (dayjs(modelStart).isSame(dayjs(presetStart), 'day')) {
                     if ((isSingleDayPreset && !modelEnd) || dayjs(modelEnd).isSame(dayjs(presetEnd), 'day')) {
-                        if (!this.internalPresetValue || this.internalPresetValue == 'CUSTOM') {
+                        if (!this.internalPresetValue || presetKey == this.internalPresetValue) {
                             return presetKey;
-                        } else if (presetKey == this.internalPresetValue) {
-                            return presetKey;
+                        } else {
+                            return this.internalPresetValue;
                         }
                     }
                 }
