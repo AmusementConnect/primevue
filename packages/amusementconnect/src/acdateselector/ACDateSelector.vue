@@ -24,7 +24,7 @@
             @blur="onBlur"
             @keydown="onKeyDown"
         >
-            <strong>{{ presetDisplayNames[internalPresetValue] || internalPresetValue }}</strong>
+            <strong>{{ presetDisplayNames[detectedPreset] || internalPresetValue }}</strong>
             <CalendarIcon />
             {{ inputFieldValue || placeholder }}
         </span>
@@ -77,7 +77,7 @@
                             <span style="font-weight: 500">Presets</span>
                             <ul :class="cx('presetList')">
                                 <li v-for="preset in Object.keys(dateRangeMap).filter((key) => !excludedPresets.includes(key))" :key="preset" :class="cx('presetListItem')">
-                                    <RadioButton :modelValue="detectedPreset" :input-id="'preset-' + preset" name="date-preset" :value="preset" :tab-index="0" @update:modelValue="onPresetChange" />
+                                    <RadioButton :modelValue="internalPresetValue" :input-id="'preset-' + preset" name="date-preset" :value="preset" :tab-index="0" @update:modelValue="onPresetChange" />
                                     <label :for="'preset-' + preset">{{ presetDisplayNames[preset] || preset }}</label>
                                 </li>
                             </ul>
@@ -639,7 +639,7 @@ export default {
             noOpOnPresetChange: false,
             dateRangeMap: getPresetMap({ maxDate: this.$props.maxDate, excludedPresets: this.$props.excludedPresets }),
             presetDisplayNames: presetDisplayNames,
-            explicitCustomPresetSelection: false
+            explicitPresetSelection: false
         };
     },
     watch: {
@@ -659,9 +659,7 @@ export default {
                     this.$refs.clearIcon.$el.style.display = isEmpty(newValue) ? 'none' : 'block';
                 }
 
-                if (!this.internalPresetValue) {
-                    this.internalPresetValue = this.detectedPreset;
-                }
+                this.internalPresetValue = this.detectedPreset;
             }
         },
         showTime() {
@@ -758,16 +756,12 @@ export default {
     },
     methods: {
         onPresetChange(presetName) {
+            this.explicitPresetSelection = true;
             this.internalPresetValue = presetName;
 
-            if (presetName == 'CUSTOM') {
-                this.explicitCustomPresetSelection = true;
-            } else {
-                this.explicitCustomPresetSelection = false;
-                const dateRange = this.dateRangeMap[presetName];
-                if (dateRange && dateRange.length === 2) {
-                    this.updateModel(dateRange);
-                }
+            const dateRange = this.dateRangeMap[presetName];
+            if (dateRange && dateRange.length === 2) {
+                this.updateModel(dateRange);
             }
         },
         isSelected(dateMeta) {
@@ -1257,7 +1251,7 @@ export default {
                 return;
             }
 
-            this.explicitCustomPresetSelection = false;
+            this.explicitPresetSelection = false;
 
             find(this.overlay, 'table td span:not([data-p-disabled="true"])').forEach((cell) => (cell.tabIndex = -1));
 
@@ -2987,28 +2981,33 @@ export default {
     },
     computed: {
         detectedPreset() {
+            if (this.explicitPresetSelection) {
+                this.explicitPresetSelection = false;
+                return this.internalPresetValue;
+            }
+
             // Get fresh preset mappings for comparison
             const currentMappings = this.dateRangeMap;
             const [modelStart, modelEnd] = this.modelValue;
 
-            if (this.explicitCustomPresetSelection && this.internalPresetValue == 'CUSTOM') {
-                this.explicitCustomPresetSelection = false;
-                return 'CUSTOM';
-            }
-
+            let backup = [];
             for (const [presetKey, presetRange] of Object.entries(currentMappings)) {
                 const [presetStart, presetEnd] = presetRange;
                 const isSingleDayPreset = dayjs(presetStart).isSame(dayjs(presetEnd), 'day');
 
                 if (dayjs(modelStart).isSame(dayjs(presetStart), 'day')) {
                     if ((isSingleDayPreset && !modelEnd) || dayjs(modelEnd).isSame(dayjs(presetEnd), 'day')) {
-                        if (!this.internalPresetValue || presetKey == this.internalPresetValue) {
-                            return presetKey;
-                        } else {
+                        if (presetKey == this.internalPresetValue) {
                             return this.internalPresetValue;
+                        } else {
+                            backup.push(presetKey);
                         }
                     }
                 }
+            }
+
+            if (backup.length) {
+                return backup[0];
             }
 
             return 'CUSTOM';
