@@ -6,6 +6,7 @@
         "skipLibCheck": false,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
+        "ignoreDeprecations": "6.0", // Suppresses deprecation warnings for dependencies (ie target: es5)
         "noEmit": true,
         "esModuleInterop": true,
         "module": "esnext",
@@ -16,7 +17,8 @@
         "incremental": true,
         "baseUrl": ".",
         "paths": {
-            "primevue/*": ["./src/*"],
+            "primevue/*": ["../../packages/primevue/src/*"],
+            "@primevue/core": ["../../packages/core/src/index"],
             "@primevue/core/*": ["../../packages/core/src/*"],
             "@primevue/icons/*": ["../../packages/icons/src/*"],
             "@primevue/primevue/*": ["../../packages/primevue/src/*"]
